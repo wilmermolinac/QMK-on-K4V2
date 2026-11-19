@@ -13,3 +13,7 @@
 #define K4V2_LAYER_WIN_BASE 0
 #define K4V2_LAYER_MAC_BASE 1
 #define K4V2_LAYER_FN       2
+
+// Start with the per-group "Zones" lighting (see rgb_matrix_kb.inc). The light
+// key cycles through it and the other effects as usual.
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_K4V2_ZONES

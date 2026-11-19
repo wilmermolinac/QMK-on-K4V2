@@ -134,6 +134,34 @@ Usa `backup/MI_FIRMWARE_ORIGINAL.bin`. Para forzar una versión concreta:
 
 Mantén **Shift** para ir en sentido contrario. Los ajustes se guardan solos.
 
+#### Efecto "Zonas" (colores por grupo de teclas)
+
+Es el efecto con el que arranca el firmware: cada grupo de teclas tiene su
+propio color fijo, para distinguirlos de un vistazo.
+
+| Grupo | Color |
+|---|---|
+| Esc | Rojo |
+| F1–F12 | Morado |
+| Fila de números (`` ` `` 1–0 `-` `=`) | Naranja |
+| Letras A–Z | Cian |
+| Símbolos (`[ ] \ ; ' , . /`, y `#` / `\` extra en ISO) | Amarillo |
+| Modificadores (Tab, Bloq Mayús, Shift, Ctrl, Win/Cmd, Alt/Opt, Fn, Enter, Borrar, Espacio) | Blanco |
+| Navegación (Supr, Inicio, Fin, RePág, AvPág, flechas) | Verde |
+| Teclado numérico | Azul |
+| Tecla de luz | Magenta |
+
+- El **brillo** funciona igual que siempre (F5/F6, o en VIA).
+- El **color** (Fn + `-` numérico, o el selector de VIA) gira toda la paleta a
+  la vez: los grupos siguen siendo distintos entre sí. Para volver a los colores
+  de la tabla, deja el tono en 0 (rojo puro en VIA).
+- La **saturación** baja todos los grupos hacia el blanco.
+- Si cambias a otro efecto con la tecla de luz, sigue pulsándola (o Shift + tecla
+  de luz) hasta volver a "Zonas". La lista de efectos de VIA no conoce este
+  efecto por su nombre, así que para volver a él usa la tecla de luz.
+- Para cambiar grupos o colores hay que editar
+  `firmware/keyboards/keychron/k4/rgb/v2/rgb_matrix_kb.inc`, recompilar y flashear.
+
 Para emparejar con el Mac: mantén Fn + 1 tres segundos y elige el teclado
 (aparece con el nombre que le da el módulo, normalmente "Keychron K4") en
 Ajustes del Sistema → Bluetooth.
