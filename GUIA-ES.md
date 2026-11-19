@@ -121,9 +121,57 @@ Usa `backup/MI_FIRMWARE_ORIGINAL.bin`. Para forzar una versión concreta:
 | Batería baja | La tecla del perfil parpadea en rojo cada 4 s |
 | Ahorro de energía (BT) | Luces apagadas tras 10 min sin usar (40 s si no hay conexión); cualquier tecla las enciende |
 
+### Luces (colores y efectos)
+
+| Qué cambia | Teclas |
+|---|---|
+| Siguiente efecto (Shift = anterior) | **Tecla de luz** (arriba a la derecha) |
+| Encender / apagar | **Fn + tecla de luz** |
+| Color | **Fn + `-`** del teclado numérico |
+| Saturación | **Fn + Enter** del teclado numérico |
+| Velocidad | **Fn + `+`** del teclado numérico |
+| Brillo | Mac: **F5 / F6** · Windows: **Fn + F5 / F6** |
+
+Mantén **Shift** para ir en sentido contrario. Los ajustes se guardan solos.
+
 Para emparejar con el Mac: mantén Fn + 1 tres segundos y elige el teclado
 (aparece con el nombre que le da el módulo, normalmente "Keychron K4") en
 Ajustes del Sistema → Bluetooth.
+
+## 8. Configurar con VIA (colores y teclas con el ratón)
+
+[VIA](https://usevia.app) es un programa gratuito que permite cambiar colores,
+efectos y lo que hace cada tecla sin recompilar. Necesita la versión `via` del
+firmware (incluye el mismo Bluetooth):
+
+```bash
+scripts/build.sh via
+```
+
+Entra al bootloader (**Fn + Esc**) y flashea tu distribución:
+
+```bash
+scripts/flash.sh build/out/keychron_k4_rgb_v2_ansi_via.bin
+```
+
+(o `..._iso_via.bin` si tu teclado es ISO). Al arrancar por primera vez con VIA
+se reinician los ajustes guardados (luces) a los de fábrica; es normal.
+
+Luego:
+
+1. Abre **https://usevia.app** en **Google Chrome** o Edge (Safari no sirve:
+   no permite que las webs hablen con teclados USB). Usa el modo **Cable**.
+2. En **Settings** activa **Show Design tab**.
+3. En la pestaña **Design**, arrastra el archivo `via/k4v2_ansi_via.json`
+   (o `via/k4v2_iso_via.json`) de este repo. Como el K4 V2 no está en la lista
+   oficial de VIA, este paso hay que repetirlo cada vez que abras VIA.
+4. Pulsa **Authorize device**, elige el teclado y ya puedes usar:
+   - **Lighting**: efecto, brillo, velocidad y un selector de color.
+   - **Configure**: cambiar teclas. Capas: **0 = Windows**, **1 = Mac**,
+     **2 = Fn** (compartida). En modo Mac, Fn + F1…F12 envía lo que tenga la
+     fila de F de la capa 0. La tecla de batería aparece en *Custom* como **Batt**.
+
+Por memoria (el chip tiene 8 KB de RAM) la versión VIA usa 3 capas en lugar de 4.
 
 ## Estado del Bluetooth
 

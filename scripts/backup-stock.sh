@@ -48,7 +48,20 @@ elif [ "$dev_sum" = "$STOCK_ISO_CHECKSUM" ]; then
     cp "$BACKUP/$STOCK_ISO_FILE" "$BACKUP/MI_FIRMWARE_ORIGINAL.bin"
     echo "COINCIDE: tu teclado tiene exactamente $STOCK_ISO_FILE"
 else
-    echo "NO COINCIDE: tu teclado reporta checksum $dev_sum."
+    # The stock firmware keeps the user's lighting settings in two flash
+    # pages (0x7000 / 0x8000) inside the image, so the same firmware with
+    # different saved settings differs by a few whole high bytes.
+    for pair in "ANSI:$STOCK_ANSI_CHECKSUM" "ISO:$STOCK_ISO_CHECKSUM"; do
+        name="${pair%%:*}"; ref="${pair#*:}"
+        diff=$(( (ref - dev_sum) & 0xFFFF ))
+        if [ $(( diff & 0xFF )) -eq 0 ] && { [ "$diff" -le $((0x2000)) ] || [ "$diff" -ge $((0xE000)) ]; }; then
+            printf 'CASI COINCIDE con %s (diferencia 0x%04x): es muy probable que sea el mismo\n' "$name" "$diff"
+            echo "firmware con otros ajustes de luces guardados. Para confirmarlo: sal del modo boot,"
+            echo "restablece de fábrica (Fn + J + Z durante 3-5 s, en modo Cable), vuelve a entrar al"
+            echo "modo boot y ejecuta este script otra vez."
+        fi
+    done
+    echo "NO COINCIDE exactamente: tu teclado reporta checksum $dev_sum."
     echo "Tu versión de firmware no está en la base de datos (p. ej. otra versión o idioma)."
     echo "Opciones antes de flashear QMK:"
     echo "  - Descargar el actualizador oficial de Keychron para tu K4 v2 (Windows) y"

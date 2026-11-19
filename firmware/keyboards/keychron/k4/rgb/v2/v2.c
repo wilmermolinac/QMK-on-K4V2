@@ -11,6 +11,7 @@
 #include "connection.h"
 #include "keymap_introspection.h"
 #include "k4v2_bt.h"
+#include <string.h>
 
 #ifdef CONSOLE_ENABLE
 #    include "print.h"
@@ -56,15 +57,43 @@ static uint16_t bt_batt_query_timer = 0;
 
 // ---- Mac/Windows switch ------------------------------------------------------
 // DIP index 1 on D6, active = Mac. Selects the default layer, but only when the
-// keymap actually has the Mac layers (keymaps with 2 layers stay on layer 0).
+// keymap actually has the Mac layer.
+static bool     mac_mode = false;
+static uint16_t mac_fn_frow[12]; // keycodes registered by Fn + F-row in Mac mode
+
 static void k4v2_apply_os_mode(bool mac_active) {
 #ifndef K4V2_OS_SWITCH_DISABLE
     uint8_t base = mac_active ? K4V2_LAYER_MAC_BASE : K4V2_LAYER_WIN_BASE;
     if (base >= keymap_layer_count()) base = K4V2_LAYER_WIN_BASE;
+    mac_mode = (base == K4V2_LAYER_MAC_BASE);
     if (bt_ready) clear_keyboard(); // release held keys on a runtime switch
+    memset(mac_fn_frow, 0, sizeof(mac_fn_frow));
     layer_clear();
     default_layer_set((layer_state_t)1 << base);
 #endif
+}
+
+// Mac mode: the Mac base layer has the macOS functions on the F-row, so
+// Fn + F1..F12 sends whatever the Windows base layer has there (F1-F12 by
+// default, editable in VIA). Returns true when the event was handled.
+static bool k4v2_mac_fn_frow(keyrecord_t *record) {
+    uint8_t row = record->event.key.row, col = record->event.key.col;
+    if (row != 0 || col < 1 || col > 12) return false;
+    uint8_t i = col - 1;
+    if (record->event.pressed) {
+        if (!mac_mode || !layer_state_is(K4V2_LAYER_FN)) return false;
+        uint16_t kc = keymap_key_to_keycode(K4V2_LAYER_WIN_BASE, record->event.key);
+        if (!IS_BASIC_KEYCODE(kc)) return false;
+        mac_fn_frow[i] = kc;
+        register_code(kc);
+        return true;
+    }
+    if (mac_fn_frow[i]) {
+        unregister_code(mac_fn_frow[i]);
+        mac_fn_frow[i] = 0;
+        return true;
+    }
+    return false;
 }
 
 // ---- Idle sleep (BT mode), timings from the stock firmware -------------------
@@ -210,6 +239,10 @@ void k4bt_on_notification(uint8_t group, uint8_t code) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
+    if (k4v2_mac_fn_frow(record)) {
         return false;
     }
 
