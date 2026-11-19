@@ -28,6 +28,8 @@ _Static_assert(sizeof(k4v2_zones_eeprom_t) <= EECONFIG_KB_DATA_SIZE, "EECONFIG_K
 _Static_assert(RGB_MATRIX_SOLID_REACTIVE_SIMPLE == 8, "effect IDs changed: update scripts/gen-via-lighting.py");
 _Static_assert(RGB_MATRIX_SPLASH == 9, "effect IDs changed: update scripts/gen-via-lighting.py");
 _Static_assert(RGB_MATRIX_CUSTOM_K4V2_ZONES == 10, "effect IDs changed: update scripts/gen-via-lighting.py");
+_Static_assert(RGB_MATRIX_CUSTOM_K4V2_ZONES_GAMING == 12, "effect IDs changed: update scripts/gen-via-lighting.py");
+_Static_assert(RGB_MATRIX_CUSTOM_K4V2_ZONES_CODE == 13, "effect IDs changed: update scripts/gen-via-lighting.py");
 _Static_assert(RGB_MATRIX_CUSTOM_K4V2_ZONES_ICE == 17, "effect IDs changed: update scripts/gen-via-lighting.py");
 _Static_assert(RGB_MATRIX_EFFECT_MAX == 18, "effect IDs changed: update scripts/gen-via-lighting.py");
 

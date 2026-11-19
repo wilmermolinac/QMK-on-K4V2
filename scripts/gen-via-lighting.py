@@ -26,11 +26,11 @@ EFFECTS = [
     ("Splash", 9),
     ("Zones: Custom (edit below)", 10),
     ("Zones: Classic", 11),
-    ("Zones: Ocean", 12),
-    ("Zones: Sunset", 13),
-    ("Zones: Neon", 14),
-    ("Zones: Forest", 15),
-    ("Zones: Candy", 16),
+    ("Zones: Gaming", 12),
+    ("Zones: Code", 13),
+    ("Zones: Ocean", 14),
+    ("Zones: Sunset", 15),
+    ("Zones: Neon", 16),
     ("Zones: Ice", 17),
 ]
 ZONES_CUSTOM = 10

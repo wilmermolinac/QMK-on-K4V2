@@ -20,7 +20,7 @@ flash and restore the stock firmware.
 | **Bluetooth** | 3 profiles, pairing, battery level on the number row, low-battery warning, auto sleep |
 | **Mac / Windows switch** | The side switch selects a Mac layer or a Windows layer (Option/Command, macOS F-row functions) |
 | **VIA** | Remap keys and change lighting from [usevia.app](https://usevia.app), no recompiling |
-| **Zones lighting** | Default effect: each key group gets its own color. Pick the colors in VIA or use one of 7 ready-made palettes |
+| **Zones lighting** | Default effect: each key group gets its own color. Pick the colors in VIA or use a ready-made palette, including Gaming and Code modes |
 | **Safe install** | Scripts verify your stock firmware before flashing and can put it back at any time |
 
 ## Status
@@ -206,11 +206,11 @@ key (or VIA's *Effect* list) goes through them:
 |---|---|
 | **Zones: Custom** (default) | Your own colors: pick one per group in VIA (see below). Starts as Classic |
 | **Zones: Classic** | The colors in the photo (table below) |
+| **Zones: Gaming** | Game keys stand out, everything else is dim (table below) |
+| **Zones: Code** | Keys grouped by what they do when programming (table below) |
 | **Zones: Ocean** | Blues, aquas and turquoise |
 | **Zones: Sunset** | Reds, oranges, ambers and pinks |
 | **Zones: Neon** | Bright magenta, yellow, cyan, green and purple |
-| **Zones: Forest** | Greens, lime and warm white |
-| **Zones: Candy** | Soft pastel version of Classic |
 | **Zones: Ice** | Blues with white letters |
 
 Classic colors:
@@ -226,6 +226,30 @@ Classic colors:
 | Navigation (Del, Home, End, PgUp, PgDn, arrows) | Green |
 | Numpad | Blue |
 | Light key | Magenta |
+
+**Gaming:**
+
+| Keys | Color |
+|---|---|
+| W A S D (movement) | Red |
+| Q E R F G (abilities, interact, reload) | Orange |
+| 1–5 (weapons, items) | Yellow |
+| Space, Left Shift, Left Ctrl, Left Alt (jump, sprint, crouch) | Cyan |
+| Esc, Tab, T, Z X C V B, M, arrows (menus, chat, map, extra binds) | Soft blue |
+| Everything else | Dim purple |
+
+**Code:**
+
+| Keys | Color |
+|---|---|
+| `[ ]` and `9 0` (for `{ }` and `( )`) | Magenta |
+| Operators: `- = /` and numpad `/ * - +` | Yellow |
+| Punctuation: `; ' , . \` and `` ` `` | Green |
+| Editing: Backspace, Del, Enter, Tab, Space | White |
+| Navigation: arrows, Home, End, PgUp, PgDn | Blue |
+| Shortcuts: Ctrl, Win/Cmd, Alt/Opt, Shift, Fn, Caps Lock | Purple |
+| Esc and the usual run/debug keys F5, F9–F12 | Red |
+| Letters, 1–8, other F-keys, numpad digits | Soft, so the groups above stand out |
 
 - **Brightness** works as usual in every Zones effect.
 - In the **fixed palettes**, the global **Color** (Fn + numpad `-`, or VIA's
@@ -248,11 +272,13 @@ The colors survive unplugging. Flashing a new build resets them to Classic.
 
 Edit [`rgb_matrix_kb.inc`](firmware/keyboards/keychron/k4/rgb/v2/rgb_matrix_kb.inc):
 
-- `k4v2_zone_map` is the keyboard matrix (6 rows × 19 columns). Each entry
-  says which group a key belongs to, for example `_L` for letters.
-- `k4v2_pal_classic`, `k4v2_pal_ocean`… hold each palette as `{hue, saturation}`
-  per group on QMK's 0–255 scale: 0 red, 21 orange, 43 yellow, 85 green,
-  128 cyan, 170 blue, 191 purple, 213 magenta. Saturation 0 is white.
+- `k4v2_map_general`, `k4v2_map_gaming` and `k4v2_map_code` are the keyboard
+  matrix (6 rows × 19 columns). Each entry says which group a key belongs to,
+  for example `_W` for WASD in the Gaming map.
+- `k4v2_pal_classic`, `k4v2_pal_gaming`, `k4v2_pal_code`… hold each palette as
+  `{hue, saturation, brightness}` per group on QMK's 0–255 scale. Hue: 0 red,
+  21 orange, 43 yellow, 85 green, 128 cyan, 170 blue, 191 purple, 213 magenta.
+  Saturation 0 is white. Brightness 255 is full, lower values dim the group.
 
 Then run `scripts/build.sh via` and flash again (step 5).
 

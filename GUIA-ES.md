@@ -17,7 +17,7 @@ respaldan, flashean y restauran el firmware original.
 | **Bluetooth** | 3 perfiles, emparejamiento, nivel de batería en la fila de números, aviso de batería baja, suspensión automática |
 | **Interruptor Mac / Windows** | El interruptor lateral elige una capa Mac o una Windows (Option/Command, funciones de macOS en la fila F) |
 | **VIA** | Cambiar teclas y luces desde [usevia.app](https://usevia.app) sin recompilar |
-| **Luces por zonas** | Efecto por defecto: cada grupo de teclas con su color. Elige los colores en VIA o usa una de 7 paletas listas |
+| **Luces por zonas** | Efecto por defecto: cada grupo de teclas con su color. Elige los colores en VIA o usa una paleta lista, incluidos los modos Gaming y Code |
 | **Instalación segura** | Los scripts comprueban tu firmware original antes de flashear y pueden devolverlo cuando quieras |
 
 ## Estado
@@ -204,11 +204,11 @@ de luz (o la lista *Effect* de VIA) pasa por ellas:
 |---|---|
 | **Zones: Custom** (por defecto) | Tus propios colores: elige uno por grupo en VIA (ver abajo). Empieza igual que Classic |
 | **Zones: Classic** | Los colores de la foto (tabla de abajo) |
+| **Zones: Gaming** | Las teclas de juego destacan y el resto queda tenue (tabla abajo) |
+| **Zones: Code** | Teclas agrupadas por lo que hacen al programar (tabla abajo) |
 | **Zones: Ocean** | Azules, aguamarinas y turquesa |
 | **Zones: Sunset** | Rojos, naranjas, ámbar y rosas |
 | **Zones: Neon** | Magenta, amarillo, cian, verde y morado intensos |
-| **Zones: Forest** | Verdes, lima y blanco cálido |
-| **Zones: Candy** | Versión pastel de Classic |
 | **Zones: Ice** | Azules con las letras en blanco |
 
 Colores de Classic:
@@ -224,6 +224,30 @@ Colores de Classic:
 | Navegación (Supr, Inicio, Fin, RePág, AvPág, flechas) | Verde |
 | Teclado numérico | Azul |
 | Tecla de luz | Magenta |
+
+**Gaming:**
+
+| Teclas | Color |
+|---|---|
+| W A S D (movimiento) | Rojo |
+| Q E R F G (habilidades, interactuar, recargar) | Naranja |
+| 1–5 (armas, objetos) | Amarillo |
+| Espacio, Shift izq., Ctrl izq., Alt izq. (saltar, correr, agacharse) | Cian |
+| Esc, Tab, T, Z X C V B, M, flechas (menús, chat, mapa, otras acciones) | Azul suave |
+| Todo lo demás | Morado tenue |
+
+**Code:**
+
+| Teclas | Color |
+|---|---|
+| `[ ]` y `9 0` (para `{ }` y `( )`) | Magenta |
+| Operadores: `- = /` y `/ * - +` del numérico | Amarillo |
+| Puntuación: `; ' , . \` y `` ` `` | Verde |
+| Edición: Borrar, Supr, Enter, Tab, Espacio | Blanco |
+| Navegación: flechas, Inicio, Fin, RePág, AvPág | Azul |
+| Atajos: Ctrl, Win/Cmd, Alt/Opt, Shift, Fn, Bloq Mayús | Morado |
+| Esc y las teclas de ejecutar/depurar F5, F9–F12 | Rojo |
+| Letras, 1–8, otras F y números del numérico | Suaves, para que destaquen los grupos de arriba |
 
 - El **brillo** funciona como siempre en todos los efectos Zonas.
 - En las **paletas fijas**, el **color** global (Fn + `-` numérico, o *Color* en
@@ -249,12 +273,14 @@ devuelve a Classic.
 
 Edita [`rgb_matrix_kb.inc`](firmware/keyboards/keychron/k4/rgb/v2/rgb_matrix_kb.inc):
 
-- `k4v2_zone_map` es la matriz del teclado (6 filas × 19 columnas). Cada posición
-  dice a qué grupo pertenece la tecla, por ejemplo `_L` para letras.
-- `k4v2_pal_classic`, `k4v2_pal_ocean`… guardan cada paleta como
-  `{tono, saturación}` por grupo en la escala 0–255 de QMK: 0 rojo, 21 naranja,
-  43 amarillo, 85 verde, 128 cian, 170 azul, 191 morado, 213 magenta.
-  Saturación 0 es blanco.
+- `k4v2_map_general`, `k4v2_map_gaming` y `k4v2_map_code` son la matriz del
+  teclado (6 filas × 19 columnas). Cada posición dice a qué grupo pertenece la
+  tecla, por ejemplo `_W` para WASD en el mapa Gaming.
+- `k4v2_pal_classic`, `k4v2_pal_gaming`, `k4v2_pal_code`… guardan cada paleta
+  como `{tono, saturación, brillo}` por grupo en la escala 0–255 de QMK. Tono:
+  0 rojo, 21 naranja, 43 amarillo, 85 verde, 128 cian, 170 azul, 191 morado,
+  213 magenta. Saturación 0 es blanco. Brillo 255 es completo; valores más
+  bajos atenúan el grupo.
 
 Después ejecuta `scripts/build.sh via` y vuelve a flashear (paso 5).
 
