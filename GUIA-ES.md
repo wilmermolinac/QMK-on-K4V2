@@ -2,7 +2,7 @@
 
 Esta guía instala [SonixQMK](https://github.com/SonixQMK/qmk_firmware) en un
 **Keychron K4 V2 RGB**, guarda primero el firmware original y añade soporte
-**Bluetooth** (experimental, ver [Estado del Bluetooth](#estado-del-bluetooth)).
+**Bluetooth** (probado en un K4 V2 ANSI, ver [Estado del Bluetooth](#estado-del-bluetooth)).
 
 > Flashear firmware tiene un riesgo pequeño. El chip del K4 V2 (SN32F248B)
 > tiene el bootloader grabado en ROM, así que puentear los pines BOOT siempre
@@ -217,8 +217,11 @@ microcontrolador por SPI. Lo que hay en este repo:
   [SonixQMK PR #486](https://github.com/SonixQMK/qmk_firmware/pull/486).
 - **Compila** para ANSI e ISO, y se verificó que el vector de interrupción SPI0
   apunta al nuevo driver y que cabe en los 8 KB de RAM.
-- **No se ha probado aún en un K4 V2 físico.** Si el Bluetooth no responde, nada
-  se rompe: el modo cable sigue funcionando y puedes volver al original.
+- **Probado en un K4 V2 ANSI físico** (firmware VIA, con un Mac): el perfil 1
+  empareja y se escribe por Bluetooth sin cable. Falta confirmar en hardware los
+  perfiles 2 y 3, el indicador de batería, la suspensión y la versión ISO. Si
+  algo no responde, nada se rompe: el modo cable sigue funcionando y puedes
+  volver al original.
 
 ### Si algo falla
 

@@ -1,4 +1,4 @@
-> **New: experimental Bluetooth support + macOS scripts for backup, flashing and restoring the stock firmware.**
+> **New: Bluetooth support (tested on a K4 V2 ANSI) + macOS scripts for backup, flashing and restoring the stock firmware.**
 > See [GUIA-ES.md](GUIA-ES.md) (Spanish), the firmware overlay in [firmware/](firmware/) and the helper scripts in [scripts/](scripts/).
 
 # The K4 has been merged to the ***sn32_develop*** branch of SonixQMK
