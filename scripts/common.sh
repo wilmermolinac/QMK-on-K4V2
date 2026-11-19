@@ -16,6 +16,10 @@ TOOLCHAIN_URL_X64="https://github.com/qmk/qmk_toolchains/releases/download/v15.2
 
 SONIXFLASHER="$BUILD/tools/SonixFlasherC/sonixflasher"
 
+# Official SonixFlasherC build for Windows (used by scripts/windows/*.ps1).
+SFC_WIN_URL="https://github.com/SonixQMK/SonixFlasherC/releases/download/3.1.0/sonixflasher-windows-x86_64.zip"
+SFC_WIN_SHA256="2958ca8de3021bf96d5c900b6bb5021a2d4c1a528d8da2516598fd067bbf0619"
+
 # SN32F248B ROM bootloader (keyboard plugged in with the BOOT pads shorted).
 BOOTLOADER_VIDPID="0c45/7040"
 
@@ -58,4 +62,22 @@ wait_for_bootloader() {
         sleep 1
     done
     die "No se encontró el bootloader. Desconecta el teclado, puentea los pines BOOT y vuelve a conectarlo."
+}
+
+# Clone SonixQMK at the pinned commit with the submodules the K4 V2 needs.
+setup_sonixqmk() {
+    if [ ! -d "$BUILD/sonixqmk/.git" ]; then
+        echo "==> Clonando SonixQMK ($SONIXQMK_BRANCH)"
+        git clone --filter=blob:none -b "$SONIXQMK_BRANCH" "$SONIXQMK_REPO" "$BUILD/sonixqmk"
+    fi
+    echo "==> Fijando SonixQMK en $SONIXQMK_COMMIT"
+    git -C "$BUILD/sonixqmk" fetch --quiet origin "$SONIXQMK_COMMIT" 2>/dev/null || true
+    git -C "$BUILD/sonixqmk" checkout --quiet "$SONIXQMK_COMMIT"
+    for sm in lib/chibios lib/chibios-contrib lib/printf lib/lufa; do
+        git -C "$BUILD/sonixqmk" submodule update --init --depth 1 "$sm"
+    done
+}
+
+cpu_count() {
+    getconf _NPROCESSORS_ONLN 2>/dev/null || nproc 2>/dev/null || echo 4
 }

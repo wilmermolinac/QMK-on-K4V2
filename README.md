@@ -28,7 +28,7 @@ flash and restore the stock firmware.
 | | |
 |---|---|
 | ✅ Tested on real hardware | K4 V2 **ANSI** RGB, VIA build, macOS: wired typing, VIA, Zones lighting, Bluetooth pairing (profile 1) and typing over Bluetooth |
-| ⚠️ Builds, not yet confirmed on hardware | Bluetooth profiles 2 and 3, battery gauge (Fn + B), sleep/wake, the **ISO** layout, Windows as the host |
+| ⚠️ Builds, not yet confirmed on hardware | Bluetooth profiles 2 and 3, battery gauge (Fn + B), sleep/wake, the **ISO** layout, Windows as the host, the Windows scripts (tested with a simulated flasher) |
 
 If you try any of the untested parts, please open an issue and say how it went.
 
@@ -39,8 +39,9 @@ If you try any of the untested parts, please open an issue and say how it went.
   **BOOT** pads.
 - **ANSI or ISO:** ANSI has a wide one-row Enter. ISO has a tall, upside-down "L"
   Enter and an extra key next to the left Shift (for example Spanish or UK layouts).
-- **Computer:** a Mac (Apple Silicon or Intel) with [Homebrew](https://brew.sh).
-  For Windows or Linux, see [Other operating systems](#other-operating-systems).
+- **Computer:** a Mac (Apple Silicon or Intel) with [Homebrew](https://brew.sh)
+  for the steps below. **On Windows, follow [Windows](#windows) instead**: no
+  tools to install, just double-click. Linux: see [Linux](#linux).
 
 > **Risk:** flashing always carries a small risk. The SN32F248B chip has its
 > bootloader in ROM, so shorting the BOOT pads always lets you flash again,
@@ -256,22 +257,87 @@ It flashes `backup/MI_FIRMWARE_ORIGINAL.bin`. To force a specific version:
   folder in the Design tab (step 6.3).
 - **Anything serious:** `scripts/restore-stock.sh`.
 
-## Other operating systems
+## Windows
 
-The scripts are for macOS, but the firmware itself is standard SonixQMK. On
-Windows or Linux:
+The Windows scripts do the same as the macOS ones (backup, flash, restore) and
+download the official [SonixFlasherC](https://github.com/SonixQMK/SonixFlasherC)
+for Windows on first use, checking its SHA-256. They run on the PowerShell
+that comes with Windows 10 and 11; nothing else to install.
 
-1. Set up [SonixQMK](https://github.com/SonixQMK/qmk_firmware) on the
-   `sn32_develop` branch at commit `c9f3803ff1cb910a713c6202cab357268cf98fa6`
-   (the one in [`scripts/common.sh`](scripts/common.sh)).
-2. Copy this repo's `firmware/keyboards/` folder on top of SonixQMK's `keyboards/`.
-3. Build with `make keychron/k4/rgb/v2/ansi:via` (or `iso`).
-4. Flash with [SonixFlasherC](https://github.com/SonixQMK/SonixFlasherC)
-   (`sonixflasher -v 0c45/7040 -f <file>.bin`) or the Sonix Flasher app
-   ([original guide](docs/ORIGINAL-GUIDE.md), offset `0x00`).
+> The Windows scripts were tested against a simulated flasher, not yet on a
+> real Windows PC. If something fails, please open an issue with the message.
 
-Back up first: without the script, compare the checksum from `sonixflasher -i`
-with the stock checksums in `scripts/common.sh`.
+### Install with the Windows kit (no building)
+
+1. Download **`K4V2-QMK-<version>-windows.zip`** from
+   [Releases](https://github.com/wilmermolinac/QMK-on-K4V2/releases/latest) and
+   unzip it (right-click → *Extract All*). Don't run it from inside the zip.
+2. Put the keyboard in bootloader mode (see [step 2](#2-enter-bootloader-mode)):
+   Cable mode, unplug, short the BOOT pads, plug in. The lights stay off.
+3. **Back up:** double-click **`backup-stock.cmd`**. It never writes to the
+   keyboard. Read the result as in [step 3](#3-back-up-the-stock-firmware):
+   *MATCH* means `backup\MI_FIRMWARE_ORIGINAL.bin` is your stock firmware.
+4. **Flash:** enter bootloader mode again and **drag the `.bin` for your
+   layout** from the `firmware` folder **onto `flash.cmd`** (or double-click
+   `flash.cmd` and pick the file). Type `yes`. When it's done, unplug and plug
+   the keyboard back in.
+5. **VIA:** same as [step 6](#6-use-via), with the JSON from the `via` folder.
+
+To go back to the stock firmware: bootloader mode, then double-click
+**`restore-stock.cmd`** (or run `restore-stock.cmd ansi` / `iso` from a
+terminal to force a version).
+
+If Windows SmartScreen warns about the `.cmd` files, choose *More info* → *Run
+anyway*: they're plain text you can open in Notepad to check.
+
+### Windows driver (only if the bootloader isn't found)
+
+The flasher normally talks to the bootloader without installing anything. If
+`backup-stock.cmd` or `flash.cmd` keeps saying *Bootloader not found* while
+the keyboard is in bootloader mode (lights off):
+
+1. Download [Zadig](https://zadig.akeo.ie).
+2. With the keyboard in bootloader mode, open Zadig and choose
+   *Options → List All Devices*.
+3. Pick the device with USB ID **`0C45 7040`** (it's only there in bootloader
+   mode), choose **WinUSB** and click *Install Driver*.
+
+This only affects the bootloader (`0C45:7040`), not the keyboard in normal use.
+
+### Build on Windows (optional)
+
+Only if you changed the firmware (for example the [Zones colors](#change-the-groups-or-colors)):
+
+1. Install [QMK MSYS](https://msys.qmk.fm) and open the **QMK MSYS** console.
+2. Download this repo and prepare SonixQMK:
+
+   ```bash
+   git clone https://github.com/wilmermolinac/QMK-on-K4V2.git
+   cd QMK-on-K4V2
+   scripts/setup-sonixqmk.sh
+   ```
+
+3. Build: `scripts/build.sh via` (files in `build/out/`).
+4. Flash from File Explorer: drag `build\out\keychron_k4_rgb_v2_ansi_via.bin`
+   onto `scripts\windows\flash.cmd`. Back up first with
+   `scripts\windows\backup-stock.cmd`.
+
+## Linux
+
+With [QMK installed](https://docs.qmk.fm/newbs_getting_started) (`qmk setup`
+gives you the ARM compiler), the same scripts work:
+
+```bash
+scripts/setup-sonixqmk.sh
+scripts/build.sh via
+```
+
+To back up and flash, build [SonixFlasherC](https://github.com/SonixQMK/SonixFlasherC)
+(or download its Linux release) and use it as in the macOS steps:
+`sonixflasher -v 0c45/7040 -i` to read the checksum (compare it with the stock
+checksums in [`scripts/common.sh`](scripts/common.sh)) and
+`sonixflasher -v 0c45/7040 -f <file>.bin` to flash. You may need a udev rule
+or `sudo` to access the bootloader.
 
 ## How the Bluetooth works
 
@@ -295,7 +361,8 @@ over SPI.
 |---|---|
 | `firmware/keyboards/keychron/k4/rgb/v2/` | Files copied on top of SonixQMK: Bluetooth driver, board logic, keymaps, Zones effect |
 | `via/` | VIA definitions for ANSI and ISO |
-| `scripts/` | macOS setup, build, backup, flash and restore |
+| `scripts/` | macOS setup, build, backup, flash and restore; `setup-sonixqmk.sh` for QMK MSYS / Linux; `make-release.sh` packs a release |
+| `scripts/windows/` | Windows backup, flash and restore (`.cmd` + PowerShell) |
 | `GUIA-ES.md` | Full guide in Spanish |
 | `docs/ORIGINAL-GUIDE.md` | ephb's original Windows guide |
 

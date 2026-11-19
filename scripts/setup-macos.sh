@@ -16,16 +16,7 @@ for pkg in libusb pkgconf; do
 done
 
 # 1. SonixQMK
-if [ ! -d "$BUILD/sonixqmk/.git" ]; then
-    echo "==> Clonando SonixQMK ($SONIXQMK_BRANCH)"
-    git clone --filter=blob:none -b "$SONIXQMK_BRANCH" "$SONIXQMK_REPO" "$BUILD/sonixqmk"
-fi
-echo "==> Fijando SonixQMK en $SONIXQMK_COMMIT"
-git -C "$BUILD/sonixqmk" fetch --quiet origin "$SONIXQMK_COMMIT" 2>/dev/null || true
-git -C "$BUILD/sonixqmk" checkout --quiet "$SONIXQMK_COMMIT"
-for sm in lib/chibios lib/chibios-contrib lib/printf lib/lufa; do
-    git -C "$BUILD/sonixqmk" submodule update --init --depth 1 "$sm"
-done
+setup_sonixqmk
 
 # 2. Toolchain
 if [ ! -x "$BUILD"/toolchain/*/bin/arm-none-eabi-gcc ] 2>/dev/null; then

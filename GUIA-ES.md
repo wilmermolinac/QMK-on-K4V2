@@ -25,7 +25,7 @@ respaldan, flashean y restauran el firmware original.
 | | |
 |---|---|
 | ✅ Probado en hardware | K4 V2 **ANSI** RGB, firmware VIA, macOS: escritura por cable, VIA, luces por zonas, emparejamiento Bluetooth (perfil 1) y escritura por Bluetooth |
-| ⚠️ Compila, falta confirmar en hardware | Perfiles Bluetooth 2 y 3, indicador de batería (Fn + B), suspensión, la distribución **ISO**, Windows como equipo |
+| ⚠️ Compila, falta confirmar en hardware | Perfiles Bluetooth 2 y 3, indicador de batería (Fn + B), suspensión, la distribución **ISO**, Windows como equipo, los scripts de Windows (probados con un flasher simulado) |
 
 Si pruebas algo de lo que falta, abre un issue y cuenta cómo te fue.
 
@@ -37,8 +37,9 @@ Si pruebas algo de lo que falta, abre un issue y cuenta cómo te fue.
 - **ANSI o ISO:** ANSI tiene el Enter horizontal de una fila. ISO tiene el Enter
   alto en forma de "L" invertida y una tecla extra junto al Shift izquierdo (por
   ejemplo, el teclado en español).
-- **Ordenador:** un Mac (Apple Silicon o Intel) con [Homebrew](https://brew.sh).
-  Para Windows o Linux, ver [Otros sistemas operativos](#otros-sistemas-operativos).
+- **Ordenador:** un Mac (Apple Silicon o Intel) con [Homebrew](https://brew.sh)
+  para los pasos de abajo. **En Windows sigue la sección [Windows](#windows)**:
+  no hay que instalar nada, solo doble clic. Linux: ver [Linux](#linux).
 
 > **Riesgo:** flashear siempre tiene un riesgo pequeño. El chip SN32F248B tiene
 > el bootloader grabado en ROM, así que puentear los contactos BOOT siempre
@@ -254,21 +255,87 @@ Flashea `backup/MI_FIRMWARE_ORIGINAL.bin`. Para forzar una versión concreta:
   `via/` en la pestaña Design (paso 6.3).
 - **Cualquier problema grave:** `scripts/restore-stock.sh`.
 
-## Otros sistemas operativos
+## Windows
 
-Los scripts son para macOS, pero el firmware es SonixQMK normal. En Windows o Linux:
+Los scripts de Windows hacen lo mismo que los de macOS (respaldo, flasheo y
+restauración) y la primera vez descargan el
+[SonixFlasherC](https://github.com/SonixQMK/SonixFlasherC) oficial para Windows,
+comprobando su SHA-256. Funcionan con el PowerShell que trae Windows 10 y 11;
+no hay que instalar nada más.
 
-1. Prepara [SonixQMK](https://github.com/SonixQMK/qmk_firmware) en la rama
-   `sn32_develop`, commit `c9f3803ff1cb910a713c6202cab357268cf98fa6` (el de
-   [`scripts/common.sh`](scripts/common.sh)).
-2. Copia la carpeta `firmware/keyboards/` de este repo encima de `keyboards/` de SonixQMK.
-3. Compila con `make keychron/k4/rgb/v2/ansi:via` (o `iso`).
-4. Flashea con [SonixFlasherC](https://github.com/SonixQMK/SonixFlasherC)
-   (`sonixflasher -v 0c45/7040 -f <archivo>.bin`) o con la app Sonix Flasher
-   ([guía original](docs/ORIGINAL-GUIDE.md), offset `0x00`).
+> Los scripts de Windows se probaron con un flasher simulado, todavía no en un
+> PC con Windows real. Si algo falla, abre un issue con el mensaje.
 
-Respalda primero: sin el script, compara el checksum de `sonixflasher -i` con los
-del firmware original que aparecen en `scripts/common.sh`.
+### Instalar con el kit de Windows (sin compilar)
+
+1. Descarga **`K4V2-QMK-<versión>-windows.zip`** desde
+   [Releases](https://github.com/wilmermolinac/QMK-on-K4V2/releases/latest) y
+   descomprímelo (clic derecho → *Extraer todo*). No lo ejecutes desde dentro del zip.
+2. Pon el teclado en modo bootloader (ver [paso 2](#2-entrar-en-modo-bootloader)):
+   modo Cable, desconecta, puentea los contactos BOOT y conecta. Las luces
+   quedan apagadas.
+3. **Respaldo:** doble clic en **`backup-stock.cmd`**. No escribe nada en el
+   teclado. Interpreta el resultado como en el [paso 3](#3-respaldar-el-firmware-original):
+   *MATCH* significa que `backup\MI_FIRMWARE_ORIGINAL.bin` es tu firmware original.
+4. **Flashear:** vuelve a entrar en bootloader y **arrastra el `.bin` de tu
+   distribución** desde la carpeta `firmware` **encima de `flash.cmd`** (o doble
+   clic en `flash.cmd` y elige el archivo). Escribe `si`. Al terminar,
+   desconecta y vuelve a conectar el teclado.
+5. **VIA:** igual que en el [paso 6](#6-usar-via), con el JSON de la carpeta `via`.
+
+Para volver al original: modo bootloader y doble clic en **`restore-stock.cmd`**
+(o `restore-stock.cmd ansi` / `iso` desde una terminal para forzar una versión).
+
+Si SmartScreen avisa sobre los `.cmd`, elige *Más información* → *Ejecutar de
+todas formas*: son texto plano y puedes abrirlos con el Bloc de notas.
+
+### Driver de Windows (solo si no encuentra el bootloader)
+
+Normalmente el flasher habla con el bootloader sin instalar nada. Si
+`backup-stock.cmd` o `flash.cmd` siguen diciendo *Bootloader not found* con el
+teclado en modo bootloader (luces apagadas):
+
+1. Descarga [Zadig](https://zadig.akeo.ie).
+2. Con el teclado en bootloader, abre Zadig y elige *Options → List All Devices*.
+3. Selecciona el dispositivo con USB ID **`0C45 7040`** (solo aparece en modo
+   bootloader), elige **WinUSB** y pulsa *Install Driver*.
+
+Solo afecta al bootloader (`0C45:7040`), no al teclado en uso normal.
+
+### Compilar en Windows (opcional)
+
+Solo si cambiaste el firmware (por ejemplo los [colores de Zonas](#cambiar-los-grupos-o-los-colores)):
+
+1. Instala [QMK MSYS](https://msys.qmk.fm) y abre la consola **QMK MSYS**.
+2. Descarga este repo y prepara SonixQMK:
+
+   ```bash
+   git clone https://github.com/wilmermolinac/QMK-on-K4V2.git
+   cd QMK-on-K4V2
+   scripts/setup-sonixqmk.sh
+   ```
+
+3. Compila: `scripts/build.sh via` (los archivos quedan en `build/out/`).
+4. Flashea desde el Explorador de archivos: arrastra
+   `build\out\keychron_k4_rgb_v2_ansi_via.bin` encima de
+   `scripts\windows\flash.cmd`. Antes, respalda con `scripts\windows\backup-stock.cmd`.
+
+## Linux
+
+Con [QMK instalado](https://docs.qmk.fm/newbs_getting_started) (`qmk setup`
+instala el compilador ARM), los mismos scripts funcionan:
+
+```bash
+scripts/setup-sonixqmk.sh
+scripts/build.sh via
+```
+
+Para respaldar y flashear, compila [SonixFlasherC](https://github.com/SonixQMK/SonixFlasherC)
+(o descarga su versión para Linux) y úsalo como en los pasos de macOS:
+`sonixflasher -v 0c45/7040 -i` para leer el checksum (compáralo con los del
+firmware original en [`scripts/common.sh`](scripts/common.sh)) y
+`sonixflasher -v 0c45/7040 -f <archivo>.bin` para flashear. Puede que necesites
+una regla udev o `sudo` para acceder al bootloader.
 
 ## Cómo funciona el Bluetooth
 
