@@ -110,6 +110,10 @@ Copy the `backup/` folder somewhere safe outside the repo too.
 
 ## 4. Build the firmware
 
+> **Don't want to build?** Download the ready-made `.bin` for your layout from
+> [Releases](https://github.com/wilmermolinac/QMK-on-K4V2/releases/latest) and
+> skip to step 5. You still need step 1 (or another copy of SonixFlasherC) to flash it.
+
 Pick one:
 
 ```bash

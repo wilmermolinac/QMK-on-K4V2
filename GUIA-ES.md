@@ -107,6 +107,11 @@ Guarda una copia de la carpeta `backup/` fuera del repo.
 
 ## 4. Compilar el firmware
 
+> **¿No quieres compilar?** Descarga el `.bin` de tu distribución desde
+> [Releases](https://github.com/wilmermolinac/QMK-on-K4V2/releases/latest) y
+> salta al paso 5. Sigues necesitando el paso 1 (u otra copia de SonixFlasherC)
+> para flashearlo.
+
 Elige uno:
 
 ```bash
