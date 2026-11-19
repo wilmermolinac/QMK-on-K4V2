@@ -1,3 +1,6 @@
+> **New: experimental Bluetooth support + macOS scripts for backup, flashing and restoring the stock firmware.**
+> See [GUIA-ES.md](GUIA-ES.md) (Spanish), the firmware overlay in [firmware/](firmware/) and the helper scripts in [scripts/](scripts/).
+
 # The K4 has been merged to the ***sn32_develop*** branch of SonixQMK
 I have written this guide when the K4V2 was not merged into SonixQMK after some changes. You should probably just build from there now.
 If you run into any issues the branch I made the PR from is still available here: [branch](https://github.com/ephb/qmk_firmware/tree/k4v2_fixes).
