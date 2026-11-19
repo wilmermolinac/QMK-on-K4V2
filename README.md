@@ -1,148 +1,307 @@
-> **New: Bluetooth support (tested on a K4 V2 ANSI) + macOS scripts for backup, flashing and restoring the stock firmware.**
-> See [GUIA-ES.md](GUIA-ES.md) (Spanish), the firmware overlay in [firmware/](firmware/) and the helper scripts in [scripts/](scripts/).
+# QMK with working Bluetooth for the Keychron K4 V2 (RGB)
 
-# The K4 has been merged to the ***sn32_develop*** branch of SonixQMK
-I have written this guide when the K4V2 was not merged into SonixQMK after some changes. You should probably just build from there now.
-If you run into any issues the branch I made the PR from is still available here: [branch](https://github.com/ephb/qmk_firmware/tree/k4v2_fixes).
+![Keychron K4 V2 running this firmware with the Zones lighting effect](docs/images/k4v2-zones.jpg)
 
-The ANSI and ISO version binaries in the release section have been built from there. 
-Also some steps in this guide might be outdated. If you encounter issue please open an issue here on GitHub so I can help you and fix it for others.
+Custom [SonixQMK](https://github.com/SonixQMK/qmk_firmware) firmware for the
+**Keychron K4 V2 RGB** that adds what upstream QMK was missing on this board:
+**Bluetooth**. It also comes with VIA support, a lighting effect that colors
+each key group differently (the photo above), and macOS scripts to back up,
+flash and restore the stock firmware.
 
-# Installing QMK on Keychron K4 V2 RGB
-This guide will walk you through the steps necessary to flashing [SonixQMK](https://github.com/SonixQMK/qmk_firmware) on a Keychron K4 V2 RGB keyboard.
-I have been using SonixQMK for more than 2 years now. Everything works but bluetooth. The necessary driver has been [merged](https://github.com/SonixQMK/qmk_firmware/commit/37a0cb7237300db0aa9882e7cf78631746ffc08c) but the K4V2 needs to be updated to work with that.
+**Leer en español:** [GUIA-ES.md](GUIA-ES.md)
 
-This guide and SonixQMK on the K4V2 were made possible by the efforts of [dexter93](https://github.com/dexter93/keychron-k4) and based on the documentation of [CanUnesi/QMK-on-K6](https://github.com/CanUnesi/QMK-on-K6) and [aathma2071/QMK-on-K2V2](https://github.com/aathma2071/QMK-on-K2V2).
+> Fork of [ephb/QMK-on-K4V2](https://github.com/ephb/QMK-on-K4V2). The original
+> Windows guide is kept in [docs/ORIGINAL-GUIDE.md](docs/ORIGINAL-GUIDE.md).
 
-These steps are mostly the same as for other keyboards supported by SonixQMK and are documented to help others with the same keyboard to get started more easily.
-Fortunately the K4 V2 is one of the easiest to flash because the version and boot pins are located right under the space bar.
+## What you get
 
-Even though repos exist for other models, this guide will only cover the K4 V2 RGB model.
+| Feature | Details |
+|---|---|
+| **Bluetooth** | 3 profiles, pairing, battery level on the number row, low-battery warning, auto sleep |
+| **Mac / Windows switch** | The side switch selects a Mac layer or a Windows layer (Option/Command, macOS F-row functions) |
+| **VIA** | Remap keys and change lighting from [usevia.app](https://usevia.app), no recompiling |
+| **Zones lighting** | Default effect: letters, numbers, F-row, symbols, modifiers, navigation and numpad each get their own color |
+| **Safe install** | Scripts verify your stock firmware before flashing and can put it back at any time |
 
-**If you just want to use VIA or get started quickly with a default keymap, you can actually skip to [5. Instructions for VIA](#5-instructions-for-via)**
+## Status
 
-**There is a small chance that you may brick your keyboard in the flashing process, continue at your own risk. Use an appropriate cable, make sure you won’t lose power during flashing and follow the steps carefully.**
+| | |
+|---|---|
+| ✅ Tested on real hardware | K4 V2 **ANSI** RGB, VIA build, macOS: wired typing, VIA, Zones lighting, Bluetooth pairing (profile 1) and typing over Bluetooth |
+| ⚠️ Builds, not yet confirmed on hardware | Bluetooth profiles 2 and 3, battery gauge (Fn + B), sleep/wake, the **ISO** layout, Windows as the host |
 
-I have not tried reverting to the original firmware so proceed at your own risk.
-This guide assumes that you have the stock bootloader and not Sonix Jumploader.
+If you try any of the untested parts, please open an issue and say how it went.
 
+## Before you start
 
-## Contents
-[1. Get Sonix Flasher](#1-get-sonix-flasher)
+- **Keyboard:** K4 **V2 RGB**. The white-backlight version is not covered.
+  Remove the space bar: the PCB should read `FK52332UB-G Ver10` and show two
+  **BOOT** pads.
+- **ANSI or ISO:** ANSI has a wide one-row Enter. ISO has a tall, upside-down "L"
+  Enter and an extra key next to the left Shift (for example Spanish or UK layouts).
+- **Computer:** a Mac (Apple Silicon or Intel) with [Homebrew](https://brew.sh).
+  For Windows or Linux, see [Other operating systems](#other-operating-systems).
 
-[2. Setting Up the Environment - QMK MSYS](#2-setting-up-the-environment---qmk-msys)
+> **Risk:** flashing always carries a small risk. The SN32F248B chip has its
+> bootloader in ROM, so shorting the BOOT pads always lets you flash again,
+> including the stock firmware. Use a good cable, don't unplug while flashing,
+> and follow the steps in order.
 
-[3. Checking Your MCU and Entering Boot Mode](#3-checking-your-mcu-and-entering-boot-mode)
+## 1. Set up the tools (once)
 
-[4. Flash the Keyboard](#4-flash-the-keyboard)
+```bash
+git clone https://github.com/wilmermolinac/QMK-on-K4V2.git
+cd QMK-on-K4V2
+scripts/setup-macos.sh
+```
 
-[5. Instructions for VIA](#5-quick-start-instructions-for-via)
+This downloads everything into `build/` (ignored by git): SonixQMK at the
+tested commit, the official QMK ARM toolchain, the QMK CLI in a Python
+virtualenv, and [SonixFlasherC](https://github.com/SonixQMK/SonixFlasherC),
+the command-line flasher. It only installs `libusb` and `pkgconf` through
+Homebrew if they're missing.
 
-&nbsp; 
+## 2. Enter bootloader mode
 
-## 1. Get Sonix Flasher
- 1.1. Go to https://github.com/SonixQMK/sonix-flasher/releases/latest
+1. Set the side switch to **Cable**.
+2. Unplug the USB cable.
+3. Remove the space bar and short the two **BOOT** pads (tweezers or a paper clip;
+   touching both pads is enough).
+4. Plug the cable in while still shorting the pads, then let go after 1–2 seconds.
+   The keyboard lights stay off.
 
- 1.2. Download "flasher-win.zip"
+**How to tell it worked:** the keyboard lights stay off and it doesn't type.
+To be sure, list the connected devices:
 
- 1.3. Unzip the archive to a convenient place such as your desktop
+```bash
+build/tools/SonixFlasherC/sonixflasher -c
+```
 
- 1.4. Open "Sonix Keyboard Flasher.exe" and check whether the keyboard is identified as Keychron.
+You should see a line with `SONIX SN32F24XB` and `0c45  7040`. If that line isn't
+there, unplug and try again: the pads have to be shorted at the moment you plug in.
 
-## 2. Setting Up the Environment - QMK MSYS
- 2.1. Download the latest release (QMK_MSYS.exe) from [this repo](https://github.com/qmk/qmk_distro_msys/releases/latest).
+> Once this firmware is installed you don't need to open the keyboard again:
+> **Fn + Esc** enters the bootloader.
 
- 2.2. Run the .exe and follow instructions.
+## 3. Back up the stock firmware
 
- 2.3. Run QMK MSYS
+Do this **before** flashing anything:
 
-You can hit the windows key and type “QMK MSYS” to find the program
+```bash
+scripts/backup-stock.sh
+```
 
- 2.4. Clone the SonixQMK repository
+It never writes to the keyboard. The bootloader can't read the flash back over
+USB, so the script does this instead:
 
-    git clone https://github.com/SonixQMK/qmk_firmware.git
-    git checkout sn32_master
+1. Reads the chip's **flash checksum** and saves it to `backup/device-info-<date>.txt`.
+2. Downloads the stock K4 V2 firmware (ANSI v1.07, ISO v1.01) from the SonixQMK
+   database and checks its SHA-256.
+3. If the checksums match, that file is **identical** to your firmware, and it's
+   saved as `backup/MI_FIRMWARE_ORIGINAL.bin`.
 
-    or use this if you want to build the current version for an iso K4
+**If it says "NO COINCIDE" (no match):** the stock firmware stores your lighting
+settings in flash, which changes the checksum. Do a factory reset with
+**Fn + J + Z** (hold about 3 seconds), go back to step 2 and run the backup again.
+If it still doesn't match, you have a different firmware version: stop here and
+keep Keychron's official updater for the K4 V2 as your way back.
 
-    git clone https://github.com/ephb/qmk_firmware.git
-    git checkout k4v2_update
+Copy the `backup/` folder somewhere safe outside the repo too.
 
-    or use this if you want to build the current version for an ansi K4
-    
-    git clone https://github.com/PythonDeployer/qmk_firmware_k4.git
-    
+## 4. Build the firmware
 
- 2.5. Change directory to qmk_firmware
+Pick one:
 
-	cd qmk_firmware
+```bash
+scripts/build.sh via       # recommended: works with VIA
+scripts/build.sh           # plain QMK keymap (smaller, no VIA)
+```
 
- 2.6. Pull the submodules
+The files end up in `build/out/`, for example
+`keychron_k4_rgb_v2_ansi_via.bin` and `keychron_k4_rgb_v2_iso_via.bin`.
 
-	make git-submodule
+## 5. Flash
 
- 2.7. Install utilities
+With the keyboard in bootloader mode (step 2, or **Fn + Esc** once this firmware
+is installed), flash the file that matches **your** layout:
 
-	util/qmk_install.sh
+```bash
+scripts/flash.sh build/out/keychron_k4_rgb_v2_ansi_via.bin
+```
 
->Note: You might need to run this twice if the QMK MSYS terminal is closed in the process.
+The script asks you to type `si` ("yes"), flashes and checks the checksum. When
+it finishes, unplug and plug the keyboard back in. On a Mac, if the Keyboard
+Setup Assistant opens, choose your layout (ANSI or ISO).
 
- 2.8. Make default firmware
+The first boot after a new build resets the saved settings (lighting, VIA
+keymap) to the defaults. That's expected.
 
-Depending on your [keyboard layout](https://upload.wikimedia.org/wikipedia/commons/1/14/Physical_keyboard_layouts_comparison_ANSI_ISO.png):
-The last paramater is the keymap. Use either *default* or *via* here if you did not make your own. We will use via for this example.
+## 6. Use VIA
 
-    qmk compile -kb keychron/k4/rgb/v2/ansi -km via
-    or
-    qmk compile -kb keychron/k4/rgb/v2/iso -km via
-    
- 2.9. Navigate to the qmk directory
+1. Open **[usevia.app](https://usevia.app)** in **Chrome** or **Edge** (Safari can't
+   talk to USB keyboards). Use the keyboard in **Cable** mode.
+2. Go to **Settings** and turn on **Show Design tab**.
+3. In the **Design** tab, load [`via/k4v2_ansi_via.json`](via/k4v2_ansi_via.json)
+   (or [`via/k4v2_iso_via.json`](via/k4v2_iso_via.json)). The K4 V2 isn't in
+   VIA's official list, so you have to load it every time you open VIA.
+4. Click **Authorize device** and pick the keyboard.
 
- 2.10. Locate and copy the .bin file
+You can now use:
 
-Depending on your layout, copy "keychron_k4_rgb_v2_iso_via.bin” or “keychron_k4_rgb_v2_iso_via.bin” to a folder for easily locating it later
+- **Configure:** remap keys. Layers are **0 = Windows**, **1 = Mac**, **2 = Fn**
+  (shared by both). In Mac mode, Fn + F1…F12 sends whatever layer 0 has on the
+  F-row. The battery key is under *Custom* as **Batt**.
+- **Lighting:** effect, brightness, speed and color.
 
-## 3. Checking Your MCU and Entering Boot Mode
- 3.1. Remove the space bar key to view the version and boot pins
+The VIA build has 3 layers instead of 4 because the chip only has 8 KB of RAM.
 
- 3.2. Check whether the version is FK52332UB-G Ver10. This is the version I have confirmed working.
+## 7. Keys and lighting
 
- 3.3. Disconnect the keyboard and use something to short the boot pins
+### Everyday keys
 
- 3.4. Plug in the keyboard with boot pins shorted
+| Action | Keys |
+|---|---|
+| Switch Mac / Windows | Side switch **Mac / Win** |
+| F1–F12 in Mac mode | **Fn** + F-row (without Fn: brightness, Mission Control, Launchpad, media, like stock) |
+| Media in Windows mode | **Fn** + F-row |
+| Bootloader (to flash) | **Fn + Esc** |
+| Insert / Print Screen / Sleep | **Fn + Del / Home / PgDn** |
 
- 3.5. Open Sonix Flasher and check if the Keyboard is identified as SN32F248B (bootloader)
+### Bluetooth
 
-**If the SN32 bootloader is correctly identified, proceed to next section else stop at this point and troubleshoot**
+| Action | Keys |
+|---|---|
+| Use Bluetooth | Side switch on **BT** |
+| Choose profile 1 / 2 / 3 | **Fn + 1 / 2 / 3** |
+| Pair a new device | **Hold Fn + 1 / 2 / 3 for 3 s**: the key blinks blue. Pick the keyboard in your device's Bluetooth settings; the key turns solid blue when connected |
+| Battery level | **Fn + B**: the number row fills up (green > 70 %, orange 30–70 %, red < 30 %) |
+| Low battery | The profile key blinks red every 4 s |
+| Power saving | Lights off after 10 min idle (40 s if not connected); any key wakes it |
 
- 3.6. Remove the tweezers shorting the boot pins
+### Lighting
 
-## 4. Flash the Keyboard
- 4.1. Make sure you have picked SN32F24x for the device and 0x00 for qmk offset.
+| Change | Keys |
+|---|---|
+| Next effect (Shift = previous) | **Light key** (top right) |
+| On / off | **Fn + light key** |
+| Color | **Fn + numpad `-`** |
+| Saturation | **Fn + numpad Enter** |
+| Speed | **Fn + numpad `+`** |
+| Brightness | Mac: **F5 / F6** · Windows: **Fn + F5 / F6** |
 
- 4.2. This is the point of no return, click “Flash QMK…” and choose the .bin file you created. It will flash as soon as you choose the file.
+Hold **Shift** to go the other way. Settings are saved automatically.
 
-## *Congratulations, you have flashed QMK into your K4!*
+### Zones effect
 
-## 5. Quick-Start Instructions for VIA
+The default effect gives each key group a fixed color:
 
- 5.1 Download VIA [here](https://github.com/the-via/releases/releases/). Note that VIA 3.0 is quite old by now but works fine for me.
- 
- 5.2 Download Prebuilt binaries from
-[Releases](https://github.com/ephb/QMK-on-K4V2/releases/tag/10bbc1f)
-Prebuilt binaries that are built last year are available here.
- 
- 5.3 Flash: Follow steps 3 and 4 using the .bin file you extracted.
+| Group | Color |
+|---|---|
+| Esc | Red |
+| F1–F12 | Purple |
+| Number row (`` ` `` 1–0 `-` `=`) | Orange |
+| Letters A–Z | Cyan |
+| Symbols (`[ ] \ ; ' , . /`, plus the extra ISO keys) | Yellow |
+| Modifiers (Tab, Caps Lock, Shift, Ctrl, Win/Cmd, Alt/Opt, Fn, Enter, Backspace, Space) | White |
+| Navigation (Del, Home, End, PgUp, PgDn, arrows) | Green |
+| Numpad | Blue |
+| Light key | Magenta |
 
- 5.4  Download the json files for VIA here: [ansi](https://raw.githubusercontent.com/ephb/qmk_firmware/refs/heads/k4v2_fixes/keyboards/keychron/k4/rgb/v2/ansi/keymaps/via/k4_via_ansi.json)
-  or [iso](https://raw.githubusercontent.com/ephb/qmk_firmware/refs/heads/k4v2_fixes/keyboards/keychron/k4/rgb/v2/via_json/k4_iso.json)
+- **Brightness** works as usual.
+- **Color** (Fn + numpad `-`, or VIA's color picker) rotates the whole palette, so
+  the groups stay distinct. Set the hue back to 0 (pure red in VIA) for the
+  colors above.
+- **Saturation** fades every group toward white.
+- If you switch to another effect, keep pressing the light key to get back to
+  Zones. VIA's effect list doesn't show it by name.
 
- 5.5 Open VIA and navigate to settings.
+#### Change the groups or colors
 
- 5.4 Enable show design tab.
+Edit [`rgb_matrix_kb.inc`](firmware/keyboards/keychron/k4/rgb/v2/rgb_matrix_kb.inc):
 
- 5.5 Navigate to Design tab and load the via_ansi.json to load the K4 design into VIA.
- This step has to be repeated every time you open VIA for a board that has not been approved.
+- `k4v2_zone_map` is the keyboard matrix (6 rows × 19 columns). Each entry
+  says which group a key belongs to, for example `_L` for letters. To make
+  W, A, S, D stand out, add a new group and use it at those positions.
+- `k4v2_zone_hs` holds the color of each group as `{hue, saturation}` on QMK's
+  0–255 scale: 0 red, 21 orange, 43 yellow, 85 green, 128 cyan, 170 blue,
+  191 purple, 213 magenta. Saturation 0 is white.
 
-## 6. Recomended Reading
-[QMK Keycodes](https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md)
+Then run `scripts/build.sh via` and flash again (step 5).
+
+## 8. Go back to the stock firmware
+
+Enter the bootloader (**Fn + Esc**, or short the BOOT pads) and run:
+
+```bash
+scripts/restore-stock.sh
+```
+
+It flashes `backup/MI_FIRMWARE_ORIGINAL.bin`. To force a specific version:
+`scripts/restore-stock.sh ansi` or `scripts/restore-stock.sh iso`.
+
+## Troubleshooting
+
+- **Bluetooth doesn't pair or doesn't type:** write down what the profile key
+  does (blinks blue? nothing?) and open an issue. Wired mode keeps working either way.
+- **Ghost or repeated keys only over Bluetooth:** add
+  `#define K4V2_MATRIX_SELECT_DELAY_US 20` to
+  [`config.h`](firmware/keyboards/keychron/k4/rgb/v2/config.h), rebuild and flash.
+- **Mac and Windows layers swapped:** add `#define K4V2_OS_SWITCH_DISABLE` to the
+  same `config.h` and open an issue.
+- **VIA says it can't find a V3 definition:** load the JSON from the `via/`
+  folder in the Design tab (step 6.3).
+- **Anything serious:** `scripts/restore-stock.sh`.
+
+## Other operating systems
+
+The scripts are for macOS, but the firmware itself is standard SonixQMK. On
+Windows or Linux:
+
+1. Set up [SonixQMK](https://github.com/SonixQMK/qmk_firmware) on the
+   `sn32_develop` branch at commit `c9f3803ff1cb910a713c6202cab357268cf98fa6`
+   (the one in [`scripts/common.sh`](scripts/common.sh)).
+2. Copy this repo's `firmware/keyboards/` folder on top of SonixQMK's `keyboards/`.
+3. Build with `make keychron/k4/rgb/v2/ansi:via` (or `iso`).
+4. Flash with [SonixFlasherC](https://github.com/SonixQMK/SonixFlasherC)
+   (`sonixflasher -v 0c45/7040 -f <file>.bin`) or the Sonix Flasher app
+   ([original guide](docs/ORIGINAL-GUIDE.md), offset `0x00`).
+
+Back up first: without the script, compare the checksum from `sonixflasher -i`
+with the stock checksums in `scripts/common.sh`.
+
+## How the Bluetooth works
+
+The K4 V2's Bluetooth is a separate ITON module that talks to the SN32F248B
+over SPI.
+
+- **Transport** ([`k4v2_bt.c`](firmware/keyboards/keychron/k4/rgb/v2/k4v2_bt.c)):
+  ported from the Keychron **K3 V2**
+  ([SonixQMK PR #501](https://github.com/SonixQMK/qmk_firmware/pull/501)), which
+  copies the stock firmware's protocol. The K3 V2 and K4 V2 share the same chip
+  and SPI peripheral.
+- **Keyboard logic** ([`v2.c`](firmware/keyboards/keychron/k4/rgb/v2/v2.c)):
+  profiles, pairing, battery and sleep, based on the K3 V2 and on the K4 V2 work in
+  [SonixQMK PR #486](https://github.com/SonixQMK/qmk_firmware/pull/486).
+- It plugs into QMK's `custom` Bluetooth driver, so wired and Bluetooth follow
+  the side switch.
+
+## Repository layout
+
+| Path | Contents |
+|---|---|
+| `firmware/keyboards/keychron/k4/rgb/v2/` | Files copied on top of SonixQMK: Bluetooth driver, board logic, keymaps, Zones effect |
+| `via/` | VIA definitions for ANSI and ISO |
+| `scripts/` | macOS setup, build, backup, flash and restore |
+| `GUIA-ES.md` | Full guide in Spanish |
+| `docs/ORIGINAL-GUIDE.md` | ephb's original Windows guide |
+
+## Credits
+
+- [ephb](https://github.com/ephb/QMK-on-K4V2): the original K4 V2 guide and port.
+- [dexter93](https://github.com/dexter93) and the [SonixQMK](https://github.com/SonixQMK) team.
+- mgrenonville: K3 V2 Bluetooth transport (SonixQMK PR #501).
+- reubenjs: K4 V2 Bluetooth integration (SonixQMK PR #486).
+- 1Conan: the original ITON driver.
+- PythonDeployer: K4 V2 ANSI port.
+
+The firmware code is GPL-2.0-or-later, like QMK.
