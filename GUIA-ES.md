@@ -17,7 +17,7 @@ respaldan, flashean y restauran el firmware original.
 | **Bluetooth** | 3 perfiles, emparejamiento, nivel de batería en la fila de números, aviso de batería baja, suspensión automática |
 | **Interruptor Mac / Windows** | El interruptor lateral elige una capa Mac o una Windows (Option/Command, funciones de macOS en la fila F) |
 | **VIA** | Cambiar teclas y luces desde [usevia.app](https://usevia.app) sin recompilar |
-| **Luces por zonas** | Efecto por defecto: letras, números, fila F, símbolos, modificadores, navegación y numérico, cada uno con su color |
+| **Luces por zonas** | Efecto por defecto: cada grupo de teclas con su color. Elige los colores en VIA o usa una de 7 paletas listas |
 | **Instalación segura** | Los scripts comprueban tu firmware original antes de flashear y pueden devolverlo cuando quieras |
 
 ## Estado
@@ -154,7 +154,8 @@ Ya puedes usar:
 - **Configure:** cambiar teclas. Capas: **0 = Windows**, **1 = Mac**, **2 = Fn**
   (compartida). En modo Mac, Fn + F1…F12 envía lo que tenga la fila F de la
   capa 0. La tecla de batería aparece en *Custom* como **Batt**.
-- **Lighting:** efecto, brillo, velocidad y color.
+- **Lighting:** efecto (todos con su nombre), brillo, velocidad, color y los
+  colores por grupo de **Zones: Custom**.
 
 La versión VIA usa 3 capas en lugar de 4 porque el chip solo tiene 8 KB de RAM.
 
@@ -194,9 +195,23 @@ La versión VIA usa 3 capas en lugar de 4 porque el chip solo tiene 8 KB de RAM.
 
 Mantén **Shift** para ir en sentido contrario. Los ajustes se guardan solos.
 
-### Efecto Zonas
+### Efectos Zonas
 
-El efecto por defecto da a cada grupo de teclas un color fijo:
+**Zonas** da a cada grupo de teclas su propio color. Hay 8 versiones; la tecla
+de luz (o la lista *Effect* de VIA) pasa por ellas:
+
+| Efecto | Qué hace |
+|---|---|
+| **Zones: Custom** (por defecto) | Tus propios colores: elige uno por grupo en VIA (ver abajo). Empieza igual que Classic |
+| **Zones: Classic** | Los colores de la foto (tabla de abajo) |
+| **Zones: Ocean** | Azules, aguamarinas y turquesa |
+| **Zones: Sunset** | Rojos, naranjas, ámbar y rosas |
+| **Zones: Neon** | Magenta, amarillo, cian, verde y morado intensos |
+| **Zones: Forest** | Verdes, lima y blanco cálido |
+| **Zones: Candy** | Versión pastel de Classic |
+| **Zones: Ice** | Azules con las letras en blanco |
+
+Colores de Classic:
 
 | Grupo | Color |
 |---|---|
@@ -210,26 +225,46 @@ El efecto por defecto da a cada grupo de teclas un color fijo:
 | Teclado numérico | Azul |
 | Tecla de luz | Magenta |
 
-- El **brillo** funciona como siempre.
-- El **color** (Fn + `-` numérico, o el selector de VIA) gira toda la paleta a
-  la vez y los grupos siguen siendo distintos. Para volver a los colores de la
-  tabla, pon el tono en 0 (rojo puro en VIA).
-- La **saturación** lleva todos los grupos hacia el blanco.
-- Si cambias a otro efecto, sigue pulsando la tecla de luz hasta volver a Zonas.
-  La lista de efectos de VIA no lo muestra por su nombre.
+- El **brillo** funciona como siempre en todos los efectos Zonas.
+- En las **paletas fijas**, el **color** global (Fn + `-` numérico, o *Color* en
+  VIA) gira toda la paleta y la **saturación** la lleva hacia el blanco. Pon el
+  tono en 0 para volver a los colores originales.
+- **Zones: Custom** muestra exactamente los colores que elegiste; el color
+  global no lo cambia.
 
-#### Cambiar los grupos o los colores
+#### Elegir tus propios colores en VIA
+
+1. En VIA abre **Lighting** y elige el efecto **Zones: Custom (edit below)**.
+2. En **Zones colors** hay un selector de color por grupo: Esc, F1-F12,
+   Numbers (números), Letters (letras), Symbols (símbolos), Modifiers
+   (modificadores), Navigation (navegación), Numpad (numérico) y Light key
+   (tecla de luz).
+3. Cambia los que quieras: el teclado se actualiza al momento y guarda los
+   colores 1,5 s después del último cambio.
+
+Los colores se mantienen al desconectar. Flashear una compilación nueva los
+devuelve a Classic.
+
+#### Cambiar los grupos o las paletas fijas (avanzado)
 
 Edita [`rgb_matrix_kb.inc`](firmware/keyboards/keychron/k4/rgb/v2/rgb_matrix_kb.inc):
 
 - `k4v2_zone_map` es la matriz del teclado (6 filas × 19 columnas). Cada posición
-  dice a qué grupo pertenece la tecla, por ejemplo `_L` para letras. Para que
-  W, A, S, D destaquen, crea un grupo nuevo y úsalo en esas posiciones.
-- `k4v2_zone_hs` guarda el color de cada grupo como `{tono, saturación}` en la
-  escala 0–255 de QMK: 0 rojo, 21 naranja, 43 amarillo, 85 verde, 128 cian,
-  170 azul, 191 morado, 213 magenta. Saturación 0 es blanco.
+  dice a qué grupo pertenece la tecla, por ejemplo `_L` para letras.
+- `k4v2_pal_classic`, `k4v2_pal_ocean`… guardan cada paleta como
+  `{tono, saturación}` por grupo en la escala 0–255 de QMK: 0 rojo, 21 naranja,
+  43 amarillo, 85 verde, 128 cian, 170 azul, 191 morado, 213 magenta.
+  Saturación 0 es blanco.
 
 Después ejecuta `scripts/build.sh via` y vuelve a flashear (paso 5).
+
+### Efectos de QMK incluidos
+
+Para que la lista sea corta (y ahorrar memoria) el firmware deja estos efectos
+de QMK: Solid Color, Breathing, Cycle All, Cycle Left/Right, Rainbow Beacon,
+Raindrops, Hue Wave, Reactive Simple (las teclas se iluminan al pulsarlas) y
+Splash. La lista está en
+[`post_config.h`](firmware/keyboards/keychron/k4/rgb/v2/post_config.h).
 
 ## 8. Volver al firmware original
 
@@ -304,7 +339,7 @@ Solo afecta al bootloader (`0C45:7040`), no al teclado en uso normal.
 
 ### Compilar en Windows (opcional)
 
-Solo si cambiaste el firmware (por ejemplo los [colores de Zonas](#cambiar-los-grupos-o-los-colores)):
+Solo si cambiaste el firmware (por ejemplo las [paletas de Zonas](#cambiar-los-grupos-o-las-paletas-fijas-avanzado)):
 
 1. Instala [QMK MSYS](https://msys.qmk.fm) y abre la consola **QMK MSYS**.
 2. Descarga este repo y prepara SonixQMK:

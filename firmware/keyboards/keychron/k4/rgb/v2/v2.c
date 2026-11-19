@@ -11,6 +11,7 @@
 #include "connection.h"
 #include "keymap_introspection.h"
 #include "k4v2_bt.h"
+#include "k4v2_zones.h"
 #include <string.h>
 
 #ifdef CONSOLE_ENABLE
@@ -203,6 +204,7 @@ void keyboard_post_init_kb(void) {
     debug_enable = true;
     uprintf("[k4v2] post_init bt_mode=%d\n", bt_mode);
 #endif
+    k4v2_zones_init();
     keyboard_post_init_user();
 }
 
@@ -275,6 +277,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void housekeeping_task_kb(void) {
+    k4v2_zones_task();
+
     // Hold a profile key: like stock, send enter_pairing a few times.
     if (bt_mode && bt_held_keycode && timer_elapsed(bt_held_timer) >= BT_PAIR_HOLD_MS) {
         bt_held_keycode = 0;

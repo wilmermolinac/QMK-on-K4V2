@@ -20,7 +20,7 @@ flash and restore the stock firmware.
 | **Bluetooth** | 3 profiles, pairing, battery level on the number row, low-battery warning, auto sleep |
 | **Mac / Windows switch** | The side switch selects a Mac layer or a Windows layer (Option/Command, macOS F-row functions) |
 | **VIA** | Remap keys and change lighting from [usevia.app](https://usevia.app), no recompiling |
-| **Zones lighting** | Default effect: letters, numbers, F-row, symbols, modifiers, navigation and numpad each get their own color |
+| **Zones lighting** | Default effect: each key group gets its own color. Pick the colors in VIA or use one of 7 ready-made palettes |
 | **Safe install** | Scripts verify your stock firmware before flashing and can put it back at any time |
 
 ## Status
@@ -156,7 +156,8 @@ You can now use:
 - **Configure:** remap keys. Layers are **0 = Windows**, **1 = Mac**, **2 = Fn**
   (shared by both). In Mac mode, Fn + F1…F12 sends whatever layer 0 has on the
   F-row. The battery key is under *Custom* as **Batt**.
-- **Lighting:** effect, brightness, speed and color.
+- **Lighting:** effect (all listed by name), brightness, speed, color and the
+  per-group colors of **Zones: Custom**.
 
 The VIA build has 3 layers instead of 4 because the chip only has 8 KB of RAM.
 
@@ -196,9 +197,23 @@ The VIA build has 3 layers instead of 4 because the chip only has 8 KB of RAM.
 
 Hold **Shift** to go the other way. Settings are saved automatically.
 
-### Zones effect
+### Zones effects
 
-The default effect gives each key group a fixed color:
+**Zones** gives each key group its own color. There are 8 versions; the light
+key (or VIA's *Effect* list) goes through them:
+
+| Effect | What it does |
+|---|---|
+| **Zones: Custom** (default) | Your own colors: pick one per group in VIA (see below). Starts as Classic |
+| **Zones: Classic** | The colors in the photo (table below) |
+| **Zones: Ocean** | Blues, aquas and turquoise |
+| **Zones: Sunset** | Reds, oranges, ambers and pinks |
+| **Zones: Neon** | Bright magenta, yellow, cyan, green and purple |
+| **Zones: Forest** | Greens, lime and warm white |
+| **Zones: Candy** | Soft pastel version of Classic |
+| **Zones: Ice** | Blues with white letters |
+
+Classic colors:
 
 | Group | Color |
 |---|---|
@@ -212,26 +227,41 @@ The default effect gives each key group a fixed color:
 | Numpad | Blue |
 | Light key | Magenta |
 
-- **Brightness** works as usual.
-- **Color** (Fn + numpad `-`, or VIA's color picker) rotates the whole palette, so
-  the groups stay distinct. Set the hue back to 0 (pure red in VIA) for the
-  colors above.
-- **Saturation** fades every group toward white.
-- If you switch to another effect, keep pressing the light key to get back to
-  Zones. VIA's effect list doesn't show it by name.
+- **Brightness** works as usual in every Zones effect.
+- In the **fixed palettes**, the global **Color** (Fn + numpad `-`, or VIA's
+  *Color*) rotates the whole palette and **Saturation** fades it toward white.
+  Set the hue back to 0 for the original colors.
+- **Zones: Custom** shows exactly the colors you picked; the global color doesn't
+  change it.
 
-#### Change the groups or colors
+#### Pick your own colors in VIA
+
+1. In VIA, open **Lighting** and choose **Zones: Custom (edit below)** as the effect.
+2. Under **Zones colors** there's one color picker per group: Esc, F1-F12,
+   Numbers, Letters, Symbols, Modifiers, Navigation, Numpad and Light key.
+3. Change any of them: the keyboard updates right away and saves the colors
+   about 1.5 s after your last change.
+
+The colors survive unplugging. Flashing a new build resets them to Classic.
+
+#### Change the groups or the fixed palettes (advanced)
 
 Edit [`rgb_matrix_kb.inc`](firmware/keyboards/keychron/k4/rgb/v2/rgb_matrix_kb.inc):
 
 - `k4v2_zone_map` is the keyboard matrix (6 rows × 19 columns). Each entry
-  says which group a key belongs to, for example `_L` for letters. To make
-  W, A, S, D stand out, add a new group and use it at those positions.
-- `k4v2_zone_hs` holds the color of each group as `{hue, saturation}` on QMK's
-  0–255 scale: 0 red, 21 orange, 43 yellow, 85 green, 128 cyan, 170 blue,
-  191 purple, 213 magenta. Saturation 0 is white.
+  says which group a key belongs to, for example `_L` for letters.
+- `k4v2_pal_classic`, `k4v2_pal_ocean`… hold each palette as `{hue, saturation}`
+  per group on QMK's 0–255 scale: 0 red, 21 orange, 43 yellow, 85 green,
+  128 cyan, 170 blue, 191 purple, 213 magenta. Saturation 0 is white.
 
 Then run `scripts/build.sh via` and flash again (step 5).
+
+### Built-in effects
+
+To keep the list short (and save memory), the firmware keeps these QMK effects:
+Solid Color, Breathing, Cycle All, Cycle Left/Right, Rainbow Beacon, Raindrops,
+Hue Wave, Reactive Simple (keys light up when pressed) and Splash. The list is in
+[`post_config.h`](firmware/keyboards/keychron/k4/rgb/v2/post_config.h).
 
 ## 8. Go back to the stock firmware
 
@@ -306,7 +336,7 @@ This only affects the bootloader (`0C45:7040`), not the keyboard in normal use.
 
 ### Build on Windows (optional)
 
-Only if you changed the firmware (for example the [Zones colors](#change-the-groups-or-colors)):
+Only if you changed the firmware (for example the [Zones palettes](#change-the-groups-or-the-fixed-palettes-advanced)):
 
 1. Install [QMK MSYS](https://msys.qmk.fm) and open the **QMK MSYS** console.
 2. Download this repo and prepare SonixQMK:

@@ -15,5 +15,8 @@
 #define K4V2_LAYER_FN       2
 
 // Start with the per-group "Zones" lighting (see rgb_matrix_kb.inc). The light
-// key cycles through it and the other effects as usual.
+// key cycles through it, the fixed palettes and the other effects.
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_K4V2_ZONES
+
+// EEPROM space for the editable Zones palette (k4v2_zones.c).
+#define EECONFIG_KB_DATA_SIZE 20
