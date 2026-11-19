@@ -213,7 +213,17 @@ key (or VIA's *Effect* list) goes through them:
 | **Zones: Neon** | Bright magenta, yellow, cyan, green and purple |
 | **Zones: Ice** | Blues with white letters |
 
-Classic colors:
+The pictures below are drawn from the firmware's own key maps and palettes
+(`scripts/gen-zone-previews.py`). On the real keyboard the LEDs look a little
+different, and the Esc and light keys always look redder because their
+keycaps are orange.
+
+![The fixed Zones palettes, one color per key group](docs/images/zones-palettes.svg)
+
+**Classic** (also where **Custom** starts):
+
+![Zones: Classic on the K4 layout](docs/images/zones-classic.svg)
+
 
 | Group | Color |
 |---|---|
@@ -229,6 +239,8 @@ Classic colors:
 
 **Gaming:**
 
+![Zones: Gaming on the K4 layout](docs/images/zones-gaming.svg)
+
 | Keys | Color |
 |---|---|
 | W A S D (movement) | Red |
@@ -239,6 +251,10 @@ Classic colors:
 | Everything else | Very dim purple |
 
 **Code:**
+
+![Zones: Code on the K4 layout](docs/images/zones-code.svg)
+
+![Zones: Code on a real K4 V2](docs/images/k4v2-code.jpg)
 
 | Keys | Color |
 |---|---|
@@ -280,7 +296,8 @@ Edit [`rgb_matrix_kb.inc`](firmware/keyboards/keychron/k4/rgb/v2/rgb_matrix_kb.i
   21 orange, 43 yellow, 85 green, 128 cyan, 170 blue, 191 purple, 213 magenta.
   Saturation 0 is white. Brightness 255 is full, lower values dim the group.
 
-Then run `scripts/build.sh via` and flash again (step 5).
+Then run `scripts/build.sh via` and flash again (step 5). To refresh the
+pictures in this guide, run `python3 scripts/gen-zone-previews.py`.
 
 ### Built-in effects
 
@@ -417,7 +434,7 @@ over SPI.
 |---|---|
 | `firmware/keyboards/keychron/k4/rgb/v2/` | Files copied on top of SonixQMK: Bluetooth driver, board logic, keymaps, Zones effect |
 | `via/` | VIA definitions for ANSI and ISO |
-| `scripts/` | macOS setup, build, backup, flash and restore; `setup-sonixqmk.sh` for QMK MSYS / Linux; `make-release.sh` packs a release |
+| `scripts/` | macOS setup, build, backup, flash and restore; `setup-sonixqmk.sh` for QMK MSYS / Linux; `make-release.sh` packs a release; `gen-via-lighting.py` and `gen-zone-previews.py` regenerate the VIA lighting menu and the Zones pictures |
 | `scripts/windows/` | Windows backup, flash and restore (`.cmd` + PowerShell) |
 | `GUIA-ES.md` | Full guide in Spanish |
 | `docs/ORIGINAL-GUIDE.md` | ephb's original Windows guide |

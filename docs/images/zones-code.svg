@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="788" height="424" viewBox="0 0 788 424" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif" role="img">
+<title>Zones: Code</title>
+<rect width="788" height="424" rx="14" fill="#101010"/>
+<text x="14" y="24" font-size="16" font-weight="600" fill="#f2f2f2">Zones: Code</text>
+<g transform="translate(0,36)">
+<rect x="16.0" y="16.0" width="36" height="36" rx="5" fill="#ff0000"/>
+<text x="34.0" y="38.0" font-size="11" text-anchor="middle" fill="#111">Esc</text>
+<rect x="56.0" y="16.0" width="36" height="36" rx="5" fill="#3d2a50"/>
+<text x="74.0" y="38.0" font-size="11" text-anchor="middle" fill="#eee">F1</text>
+<rect x="96.0" y="16.0" width="36" height="36" rx="5" fill="#3d2a50"/>
+<text x="114.0" y="38.0" font-size="11" text-anchor="middle" fill="#eee">F2</text>
+<rect x="136.0" y="16.0" width="36" height="36" rx="5" fill="#3d2a50"/>
+<text x="154.0" y="38.0" font-size="11" text-anchor="middle" fill="#eee">F3</text>
+<rect x="176.0" y="16.0" width="36" height="36" rx="5" fill="#3d2a50"/>
+<text x="194.0" y="38.0" font-size="11" text-anchor="middle" fill="#eee">F4</text>
+<rect x="216.0" y="16.0" width="36" height="36" rx="5" fill="#ff0000"/>
+<text x="234.0" y="38.0" font-size="11" text-anchor="middle" fill="#111">F5</text>
+<rect x="256.0" y="16.0" width="36" height="36" rx="5" fill="#3d2a50"/>
+<text x="274.0" y="38.0" font-size="11" text-anchor="middle" fill="#eee">F6</text>
+<rect x="296.0" y="16.0" width="36" height="36" rx="5" fill="#3d2a50"/>
+<text x="314.0" y="38.0" font-size="11" text-anchor="middle" fill="#eee">F7</text>
+<rect x="336.0" y="16.0" width="36" height="36" rx="5" fill="#3d2a50"/>
+<text x="354.0" y="38.0" font-size="11" text-anchor="middle" fill="#eee">F8</text>
+<rect x="376.0" y="16.0" width="36" height="36" rx="5" fill="#ff0000"/>
+<text x="394.0" y="38.0" font-size="11" text-anchor="middle" fill="#111">F9</text>
+<rect x="416.0" y="16.0" width="36" height="36" rx="5" fill="#ff0000"/>
+<text x="434.0" y="38.0" font-size="11" text-anchor="middle" fill="#111">F10</text>
+<rect x="456.0" y="16.0" width="36" height="36" rx="5" fill="#ff0000"/>
+<text x="474.0" y="38.0" font-size="11" text-anchor="middle" fill="#111">F11</text>
+<rect x="496.0" y="16.0" width="36" height="36" rx="5" fill="#ff0000"/>
+<text x="514.0" y="38.0" font-size="11" text-anchor="middle" fill="#111">F12</text>
+<rect x="536.0" y="16.0" width="36" height="36" rx="5" fill="#ffffff"/>
+<text x="554.0" y="38.0" font-size="11" text-anchor="middle" fill="#111">Del</text>
+<rect x="576.0" y="16.0" width="36" height="36" rx="5" fill="#0000ff"/>
+<text x="594.0" y="38.0" font-size="11" text-anchor="middle" fill="#eee">Home</text>
+<rect x="616.0" y="16.0" width="36" height="36" rx="5" fill="#0000ff"/>
+<text x="634.0" y="38.0" font-size="11" text-anchor="middle" fill="#eee">End</text>
+<rect x="656.0" y="16.0" width="36" height="36" rx="5" fill="#0000ff"/>
+<text x="674.0" y="38.0" font-size="11" text-anchor="middle" fill="#eee">PgUp</text>
+<rect x="696.0" y="16.0" width="36" height="36" rx="5" fill="#0000ff"/>
+<text x="714.0" y="38.0" font-size="11" text-anchor="middle" fill="#eee">PgDn</text>
+<rect x="736.0" y="16.0" width="36" height="36" rx="5" fill="#ff00fc"/>
+<text x="754.0" y="38.0" font-size="11" text-anchor="middle" fill="#111">Light</text>
+<rect x="16.0" y="56.0" width="36" height="36" rx="5" fill="#00ff00"/>
+<text x="34.0" y="78.0" font-size="11" text-anchor="middle" fill="#111">`</text>
+<rect x="56.0" y="56.0" width="36" height="36" rx="5" fill="#783b00"/>
+<text x="74.0" y="78.0" font-size="11" text-anchor="middle" fill="#eee">1</text>
+<rect x="96.0" y="56.0" width="36" height="36" rx="5" fill="#783b00"/>
+<text x="114.0" y="78.0" font-size="11" text-anchor="middle" fill="#eee">2</text>
+<rect x="136.0" y="56.0" width="36" height="36" rx="5" fill="#783b00"/>
+<text x="154.0" y="78.0" font-size="11" text-anchor="middle" fill="#eee">3</text>
+<rect x="176.0" y="56.0" width="36" height="36" rx="5" fill="#783b00"/>
+<text x="194.0" y="78.0" font-size="11" text-anchor="middle" fill="#eee">4</text>
+<rect x="216.0" y="56.0" width="36" height="36" rx="5" fill="#783b00"/>
+<text x="234.0" y="78.0" font-size="11" text-anchor="middle" fill="#eee">5</text>
+<rect x="256.0" y="56.0" width="36" height="36" rx="5" fill="#783b00"/>
+<text x="274.0" y="78.0" font-size="11" text-anchor="middle" fill="#eee">6</text>
+<rect x="296.0" y="56.0" width="36" height="36" rx="5" fill="#783b00"/>
+<text x="314.0" y="78.0" font-size="11" text-anchor="middle" fill="#eee">7</text>
+<rect x="336.0" y="56.0" width="36" height="36" rx="5" fill="#783b00"/>
+<text x="354.0" y="78.0" font-size="11" text-anchor="middle" fill="#eee">8</text>
+<rect x="376.0" y="56.0" width="36" height="36" rx="5" fill="#ff00fc"/>
+<text x="394.0" y="78.0" font-size="11" text-anchor="middle" fill="#111">9</text>
+<rect x="416.0" y="56.0" width="36" height="36" rx="5" fill="#ff00fc"/>
+<text x="434.0" y="78.0" font-size="11" text-anchor="middle" fill="#111">0</text>
+<rect x="456.0" y="56.0" width="36" height="36" rx="5" fill="#fcff00"/>
+<text x="474.0" y="78.0" font-size="11" text-anchor="middle" fill="#111">-</text>
+<rect x="496.0" y="56.0" width="36" height="36" rx="5" fill="#fcff00"/>
+<text x="514.0" y="78.0" font-size="11" text-anchor="middle" fill="#111">=</text>
+<rect x="536.0" y="56.0" width="76" height="36" rx="5" fill="#ffffff"/>
+<text x="574.0" y="78.0" font-size="11" text-anchor="middle" fill="#111">Bksp</text>
+<rect x="616.0" y="56.0" width="36" height="36" rx="5" fill="#13355a"/>
+<text x="634.0" y="78.0" font-size="11" text-anchor="middle" fill="#eee">Num</text>
+<rect x="656.0" y="56.0" width="36" height="36" rx="5" fill="#fcff00"/>
+<text x="674.0" y="78.0" font-size="11" text-anchor="middle" fill="#111">/</text>
+<rect x="696.0" y="56.0" width="36" height="36" rx="5" fill="#fcff00"/>
+<text x="714.0" y="78.0" font-size="11" text-anchor="middle" fill="#111">*</text>
+<rect x="736.0" y="56.0" width="36" height="36" rx="5" fill="#fcff00"/>
+<text x="754.0" y="78.0" font-size="11" text-anchor="middle" fill="#111">-</text>
+<rect x="16.0" y="96.0" width="56.0" height="36" rx="5" fill="#ffffff"/>
+<text x="44.0" y="118.0" font-size="11" text-anchor="middle" fill="#111">Tab</text>
+<rect x="76.0" y="96.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="94.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">Q</text>
+<rect x="116.0" y="96.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="134.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">W</text>
+<rect x="156.0" y="96.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="174.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">E</text>
+<rect x="196.0" y="96.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="214.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">R</text>
+<rect x="236.0" y="96.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="254.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">T</text>
+<rect x="276.0" y="96.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="294.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">Y</text>
+<rect x="316.0" y="96.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="334.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">U</text>
+<rect x="356.0" y="96.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="374.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">I</text>
+<rect x="396.0" y="96.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="414.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">O</text>
+<rect x="436.0" y="96.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="454.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">P</text>
+<rect x="476.0" y="96.0" width="36" height="36" rx="5" fill="#ff00fc"/>
+<text x="494.0" y="118.0" font-size="11" text-anchor="middle" fill="#111">[</text>
+<rect x="516.0" y="96.0" width="36" height="36" rx="5" fill="#ff00fc"/>
+<text x="534.0" y="118.0" font-size="11" text-anchor="middle" fill="#111">]</text>
+<rect x="556.0" y="96.0" width="56.0" height="36" rx="5" fill="#00ff00"/>
+<text x="584.0" y="118.0" font-size="11" text-anchor="middle" fill="#111">\</text>
+<rect x="616.0" y="96.0" width="36" height="36" rx="5" fill="#13355a"/>
+<text x="634.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">7</text>
+<rect x="656.0" y="96.0" width="36" height="36" rx="5" fill="#13355a"/>
+<text x="674.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">8</text>
+<rect x="696.0" y="96.0" width="36" height="36" rx="5" fill="#13355a"/>
+<text x="714.0" y="118.0" font-size="11" text-anchor="middle" fill="#eee">9</text>
+<rect x="736.0" y="96.0" width="36" height="36" rx="5" fill="#fcff00"/>
+<text x="754.0" y="118.0" font-size="11" text-anchor="middle" fill="#111">+</text>
+<rect x="16.0" y="136.0" width="66.0" height="36" rx="5" fill="#6d00dc"/>
+<text x="49.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">Caps</text>
+<rect x="86.0" y="136.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="104.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">A</text>
+<rect x="126.0" y="136.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="144.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">S</text>
+<rect x="166.0" y="136.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="184.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">D</text>
+<rect x="206.0" y="136.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="224.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">F</text>
+<rect x="246.0" y="136.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="264.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">G</text>
+<rect x="286.0" y="136.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="304.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">H</text>
+<rect x="326.0" y="136.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="344.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">J</text>
+<rect x="366.0" y="136.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="384.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">K</text>
+<rect x="406.0" y="136.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="424.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">L</text>
+<rect x="446.0" y="136.0" width="36" height="36" rx="5" fill="#00ff00"/>
+<text x="464.0" y="158.0" font-size="11" text-anchor="middle" fill="#111">;</text>
+<rect x="486.0" y="136.0" width="36" height="36" rx="5" fill="#00ff00"/>
+<text x="504.0" y="158.0" font-size="11" text-anchor="middle" fill="#111">'</text>
+<rect x="526.0" y="136.0" width="86.0" height="36" rx="5" fill="#ffffff"/>
+<text x="569.0" y="158.0" font-size="11" text-anchor="middle" fill="#111">Enter</text>
+<rect x="616.0" y="136.0" width="36" height="36" rx="5" fill="#13355a"/>
+<text x="634.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">4</text>
+<rect x="656.0" y="136.0" width="36" height="36" rx="5" fill="#13355a"/>
+<text x="674.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">5</text>
+<rect x="696.0" y="136.0" width="36" height="36" rx="5" fill="#13355a"/>
+<text x="714.0" y="158.0" font-size="11" text-anchor="middle" fill="#eee">6</text>
+<rect x="16.0" y="176.0" width="86.0" height="36" rx="5" fill="#6d00dc"/>
+<text x="59.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">Shift</text>
+<rect x="106.0" y="176.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="124.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">Z</text>
+<rect x="146.0" y="176.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="164.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">X</text>
+<rect x="186.0" y="176.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="204.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">C</text>
+<rect x="226.0" y="176.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="244.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">V</text>
+<rect x="266.0" y="176.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="284.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">B</text>
+<rect x="306.0" y="176.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="324.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">N</text>
+<rect x="346.0" y="176.0" width="36" height="36" rx="5" fill="#787060"/>
+<text x="364.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">M</text>
+<rect x="386.0" y="176.0" width="36" height="36" rx="5" fill="#00ff00"/>
+<text x="404.0" y="198.0" font-size="11" text-anchor="middle" fill="#111">,</text>
+<rect x="426.0" y="176.0" width="36" height="36" rx="5" fill="#00ff00"/>
+<text x="444.0" y="198.0" font-size="11" text-anchor="middle" fill="#111">.</text>
+<rect x="466.0" y="176.0" width="36" height="36" rx="5" fill="#fcff00"/>
+<text x="484.0" y="198.0" font-size="11" text-anchor="middle" fill="#111">/</text>
+<rect x="506.0" y="176.0" width="66.0" height="36" rx="5" fill="#6d00dc"/>
+<text x="539.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">Shift</text>
+<rect x="576.0" y="176.0" width="36" height="36" rx="5" fill="#0000ff"/>
+<text x="594.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">↑</text>
+<rect x="616.0" y="176.0" width="36" height="36" rx="5" fill="#13355a"/>
+<text x="634.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">1</text>
+<rect x="656.0" y="176.0" width="36" height="36" rx="5" fill="#13355a"/>
+<text x="674.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">2</text>
+<rect x="696.0" y="176.0" width="36" height="36" rx="5" fill="#13355a"/>
+<text x="714.0" y="198.0" font-size="11" text-anchor="middle" fill="#eee">3</text>
+<rect x="736.0" y="176.0" width="36" height="36" rx="5" fill="#ffffff"/>
+<text x="754.0" y="198.0" font-size="11" text-anchor="middle" fill="#111">Ent</text>
+<rect x="16.0" y="216.0" width="46.0" height="36" rx="5" fill="#6d00dc"/>
+<text x="39.0" y="238.0" font-size="11" text-anchor="middle" fill="#eee">Ctrl</text>
+<rect x="66.0" y="216.0" width="46.0" height="36" rx="5" fill="#6d00dc"/>
+<text x="89.0" y="238.0" font-size="11" text-anchor="middle" fill="#eee">Win</text>
+<rect x="116.0" y="216.0" width="46.0" height="36" rx="5" fill="#6d00dc"/>
+<text x="139.0" y="238.0" font-size="11" text-anchor="middle" fill="#eee">Alt</text>
+<rect x="166.0" y="216.0" width="246.0" height="36" rx="5" fill="#ffffff"/>
+<rect x="416.0" y="216.0" width="36" height="36" rx="5" fill="#6d00dc"/>
+<text x="434.0" y="238.0" font-size="11" text-anchor="middle" fill="#eee">Alt</text>
+<rect x="456.0" y="216.0" width="36" height="36" rx="5" fill="#6d00dc"/>
+<text x="474.0" y="238.0" font-size="11" text-anchor="middle" fill="#eee">Fn</text>
+<rect x="496.0" y="216.0" width="36" height="36" rx="5" fill="#6d00dc"/>
+<text x="514.0" y="238.0" font-size="11" text-anchor="middle" fill="#eee">Ctrl</text>
+<rect x="536.0" y="216.0" width="36" height="36" rx="5" fill="#0000ff"/>
+<text x="554.0" y="238.0" font-size="11" text-anchor="middle" fill="#eee">←</text>
+<rect x="576.0" y="216.0" width="36" height="36" rx="5" fill="#0000ff"/>
+<text x="594.0" y="238.0" font-size="11" text-anchor="middle" fill="#eee">↓</text>
+<rect x="616.0" y="216.0" width="36" height="36" rx="5" fill="#0000ff"/>
+<text x="634.0" y="238.0" font-size="11" text-anchor="middle" fill="#eee">→</text>
+<rect x="656.0" y="216.0" width="36" height="36" rx="5" fill="#13355a"/>
+<text x="674.0" y="238.0" font-size="11" text-anchor="middle" fill="#eee">0</text>
+<rect x="696.0" y="216.0" width="36" height="36" rx="5" fill="#13355a"/>
+<text x="714.0" y="238.0" font-size="11" text-anchor="middle" fill="#eee">.</text>
+</g>
+<rect x="14.0" y="320" width="14" height="14" rx="3" fill="#787060"/>
+<text x="34.0" y="332" font-size="12" fill="#d8d8d8">Letters</text>
+<rect x="267.33333333333337" y="320" width="14" height="14" rx="3" fill="#783b00"/>
+<text x="287.33333333333337" y="332" font-size="12" fill="#d8d8d8">1–8</text>
+<rect x="520.6666666666667" y="320" width="14" height="14" rx="3" fill="#ff00fc"/>
+<text x="540.6666666666667" y="332" font-size="12" fill="#d8d8d8">Brackets [ ] 9 0</text>
+<rect x="14.0" y="344" width="14" height="14" rx="3" fill="#fcff00"/>
+<text x="34.0" y="356" font-size="12" fill="#d8d8d8">Operators - = / * +</text>
+<rect x="267.33333333333337" y="344" width="14" height="14" rx="3" fill="#00ff00"/>
+<text x="287.33333333333337" y="356" font-size="12" fill="#d8d8d8">Punctuation ; ' , . \ `</text>
+<rect x="520.6666666666667" y="344" width="14" height="14" rx="3" fill="#ffffff"/>
+<text x="540.6666666666667" y="356" font-size="12" fill="#d8d8d8">Editing: Bksp, Del, Enter, Tab, Space</text>
+<rect x="14.0" y="368" width="14" height="14" rx="3" fill="#0000ff"/>
+<text x="34.0" y="380" font-size="12" fill="#d8d8d8">Navigation</text>
+<rect x="267.33333333333337" y="368" width="14" height="14" rx="3" fill="#6d00dc"/>
+<text x="287.33333333333337" y="380" font-size="12" fill="#d8d8d8">Shortcuts: Ctrl, Cmd, Alt, Shift, Fn, Caps</text>
+<rect x="520.6666666666667" y="368" width="14" height="14" rx="3" fill="#ff0000"/>
+<text x="540.6666666666667" y="380" font-size="12" fill="#d8d8d8">Esc + debug: F5, F9–F12</text>
+<rect x="14.0" y="392" width="14" height="14" rx="3" fill="#3d2a50"/>
+<text x="34.0" y="404" font-size="12" fill="#d8d8d8">Other F-keys</text>
+<rect x="267.33333333333337" y="392" width="14" height="14" rx="3" fill="#13355a"/>
+<text x="287.33333333333337" y="404" font-size="12" fill="#d8d8d8">Numpad digits</text>
+<rect x="520.6666666666667" y="392" width="14" height="14" rx="3" fill="#ff00fc"/>
+<text x="540.6666666666667" y="404" font-size="12" fill="#d8d8d8">Light key</text>
+</svg>

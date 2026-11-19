@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="676" height="198" viewBox="0 0 676 198" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif" role="img">
+<title>Zones color palettes</title>
+<rect width="676" height="198" rx="14" fill="#101010"/>
+<text x="135.0" y="26" font-size="11" text-anchor="middle" fill="#bbb">Esc</text>
+<text x="197.0" y="26" font-size="11" text-anchor="middle" fill="#bbb">F1–F12</text>
+<text x="259.0" y="26" font-size="11" text-anchor="middle" fill="#bbb">Numbers</text>
+<text x="321.0" y="26" font-size="11" text-anchor="middle" fill="#bbb">Letters</text>
+<text x="383.0" y="26" font-size="11" text-anchor="middle" fill="#bbb">Symbols</text>
+<text x="445.0" y="26" font-size="11" text-anchor="middle" fill="#bbb">Modifiers</text>
+<text x="507.0" y="26" font-size="11" text-anchor="middle" fill="#bbb">Navigation</text>
+<text x="569.0" y="26" font-size="11" text-anchor="middle" fill="#bbb">Numpad</text>
+<text x="631.0" y="26" font-size="11" text-anchor="middle" fill="#bbb">Light key</text>
+<text x="14" y="57" font-size="13" font-weight="600" fill="#f2f2f2">Classic</text>
+<rect x="107" y="43" width="56" height="24" rx="5" fill="#ff0000"/>
+<rect x="169" y="43" width="56" height="24" rx="5" fill="#7e00ff"/>
+<rect x="231" y="43" width="56" height="24" rx="5" fill="#ff7e00"/>
+<rect x="293" y="43" width="56" height="24" rx="5" fill="#00fcff"/>
+<rect x="355" y="43" width="56" height="24" rx="5" fill="#fcff00"/>
+<rect x="417" y="43" width="56" height="24" rx="5" fill="#ffffff"/>
+<rect x="479" y="43" width="56" height="24" rx="5" fill="#00ff00"/>
+<rect x="541" y="43" width="56" height="24" rx="5" fill="#0000ff"/>
+<rect x="603" y="43" width="56" height="24" rx="5" fill="#ff00fc"/>
+<text x="14" y="87" font-size="13" font-weight="600" fill="#f2f2f2">Ocean</text>
+<rect x="107" y="73" width="56" height="24" rx="5" fill="#ff5d37"/>
+<rect x="169" y="73" width="56" height="24" rx="5" fill="#0078ff"/>
+<rect x="231" y="73" width="56" height="24" rx="5" fill="#00fcff"/>
+<rect x="293" y="73" width="56" height="24" rx="5" fill="#0000ff"/>
+<rect x="355" y="73" width="56" height="24" rx="5" fill="#00ff96"/>
+<rect x="417" y="73" width="56" height="24" rx="5" fill="#c3dfff"/>
+<rect x="479" y="73" width="56" height="24" rx="5" fill="#00ff5a"/>
+<rect x="541" y="73" width="56" height="24" rx="5" fill="#7123ff"/>
+<rect x="603" y="73" width="56" height="24" rx="5" fill="#ff5d37"/>
+<text x="14" y="117" font-size="13" font-weight="600" fill="#f2f2f2">Sunset</text>
+<rect x="107" y="103" width="56" height="24" rx="5" fill="#ff0000"/>
+<rect x="169" y="103" width="56" height="24" rx="5" fill="#ff003c"/>
+<rect x="231" y="103" width="56" height="24" rx="5" fill="#ff3c00"/>
+<rect x="293" y="103" width="56" height="24" rx="5" fill="#ff7e00"/>
+<rect x="355" y="103" width="56" height="24" rx="5" fill="#ffd800"/>
+<rect x="417" y="103" width="56" height="24" rx="5" fill="#ffd687"/>
+<rect x="479" y="103" width="56" height="24" rx="5" fill="#ff23be"/>
+<rect x="541" y="103" width="56" height="24" rx="5" fill="#bb19ff"/>
+<rect x="603" y="103" width="56" height="24" rx="5" fill="#ff003c"/>
+<text x="14" y="147" font-size="13" font-weight="600" fill="#f2f2f2">Neon</text>
+<rect x="107" y="133" width="56" height="24" rx="5" fill="#ff0000"/>
+<rect x="169" y="133" width="56" height="24" rx="5" fill="#ff00fc"/>
+<rect x="231" y="133" width="56" height="24" rx="5" fill="#fcff00"/>
+<rect x="293" y="133" width="56" height="24" rx="5" fill="#00fcff"/>
+<rect x="355" y="133" width="56" height="24" rx="5" fill="#00ff00"/>
+<rect x="417" y="133" width="56" height="24" rx="5" fill="#7e00ff"/>
+<rect x="479" y="133" width="56" height="24" rx="5" fill="#ff007e"/>
+<rect x="541" y="133" width="56" height="24" rx="5" fill="#0000ff"/>
+<rect x="603" y="133" width="56" height="24" rx="5" fill="#7eff00"/>
+<text x="14" y="177" font-size="13" font-weight="600" fill="#f2f2f2">Ice</text>
+<rect x="107" y="163" width="56" height="24" rx="5" fill="#0000ff"/>
+<rect x="169" y="163" width="56" height="24" rx="5" fill="#3766ff"/>
+<rect x="231" y="163" width="56" height="24" rx="5" fill="#55a5ff"/>
+<rect x="293" y="163" width="56" height="24" rx="5" fill="#ffffff"/>
+<rect x="355" y="163" width="56" height="24" rx="5" fill="#69d3ff"/>
+<rect x="417" y="163" width="56" height="24" rx="5" fill="#a5a5ff"/>
+<rect x="479" y="163" width="56" height="24" rx="5" fill="#2dfdff"/>
+<rect x="541" y="163" width="56" height="24" rx="5" fill="#001eff"/>
+<rect x="603" y="163" width="56" height="24" rx="5" fill="#00fcff"/>
+</svg>

@@ -211,7 +211,17 @@ de luz (o la lista *Effect* de VIA) pasa por ellas:
 | **Zones: Neon** | Magenta, amarillo, cian, verde y morado intensos |
 | **Zones: Ice** | Azules con las letras en blanco |
 
-Colores de Classic:
+Las imágenes de abajo salen de los mapas de teclas y paletas del propio
+firmware (`scripts/gen-zone-previews.py`). En el teclado real los LED se ven
+un poco distintos, y Esc y la tecla de luz siempre se ven más rojas porque
+sus teclas son naranjas.
+
+![Las paletas fijas de Zonas, un color por grupo de teclas](docs/images/zones-palettes.svg)
+
+**Classic** (también es como empieza **Custom**):
+
+![Zones: Classic en la distribución del K4](docs/images/zones-classic.svg)
+
 
 | Grupo | Color |
 |---|---|
@@ -227,6 +237,8 @@ Colores de Classic:
 
 **Gaming:**
 
+![Zones: Gaming en la distribución del K4](docs/images/zones-gaming.svg)
+
 | Teclas | Color |
 |---|---|
 | W A S D (movimiento) | Rojo |
@@ -237,6 +249,10 @@ Colores de Classic:
 | Todo lo demás | Morado muy tenue |
 
 **Code:**
+
+![Zones: Code en la distribución del K4](docs/images/zones-code.svg)
+
+![Zones: Code en un K4 V2 real](docs/images/k4v2-code.jpg)
 
 | Teclas | Color |
 |---|---|
@@ -282,7 +298,9 @@ Edita [`rgb_matrix_kb.inc`](firmware/keyboards/keychron/k4/rgb/v2/rgb_matrix_kb.
   213 magenta. Saturación 0 es blanco. Brillo 255 es completo; valores más
   bajos atenúan el grupo.
 
-Después ejecuta `scripts/build.sh via` y vuelve a flashear (paso 5).
+Después ejecuta `scripts/build.sh via` y vuelve a flashear (paso 5). Para
+actualizar las imágenes de esta guía, ejecuta
+`python3 scripts/gen-zone-previews.py`.
 
 ### Efectos de QMK incluidos
 
