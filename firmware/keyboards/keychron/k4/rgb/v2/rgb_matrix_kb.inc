@@ -171,9 +171,16 @@ static const k4v2_hsv3_t k4v2_pal_sunset[K4V2_ZONE_COUNT]  = {{0, 0, 0}, {0, 255
 static const k4v2_hsv3_t k4v2_pal_neon[K4V2_ZONE_COUNT]    = {{0, 0, 0}, {0, 255, 255}, {213, 255, 255}, {43, 255, 255}, {128, 255, 255}, {85, 255, 255}, {191, 255, 255}, {234, 255, 255}, {170, 255, 255}, {64, 255, 255}};
 static const k4v2_hsv3_t k4v2_pal_ice[K4V2_ZONE_COUNT]     = {{0, 0, 0}, {170, 255, 255}, {160, 200, 255}, {150, 170, 255}, {0, 0, 255}, {140, 150, 255}, {170, 90, 255}, {128, 210, 255}, {165, 255, 255}, {128, 255, 255}};
 
-// Gaming: none, rest, move, action, slots, body, utility, light key
+// Gaming: hues far apart so neighbouring groups don't blend on the LEDs.
 static const k4v2_hsv3_t k4v2_pal_gaming[GZ_COUNT] = {
-    {0, 0, 0}, {191, 255, 45}, {0, 255, 255}, {21, 255, 255}, {43, 255, 255}, {128, 255, 255}, {170, 200, 170}, {213, 255, 255},
+    {0, 0, 0},       // none
+    {191, 255, 28},  // rest: very dim purple
+    {0, 255, 255},   // W A S D: red
+    {43, 255, 255},  // Q E R F G: yellow
+    {85, 255, 255},  // 1-5: green
+    {128, 255, 255}, // Space, Shift, Ctrl, Alt: cyan
+    {172, 255, 255}, // Esc, Tab, T, Z X C V B, M, arrows: blue
+    {213, 255, 255}, // light key
 };
 
 // Code: none, letters, digits, brackets, operators, punctuation, editing,

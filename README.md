@@ -232,11 +232,11 @@ Classic colors:
 | Keys | Color |
 |---|---|
 | W A S D (movement) | Red |
-| Q E R F G (abilities, interact, reload) | Orange |
-| 1–5 (weapons, items) | Yellow |
+| Q E R F G (abilities, interact, reload) | Yellow |
+| 1–5 (weapons, items) | Green |
 | Space, Left Shift, Left Ctrl, Left Alt (jump, sprint, crouch) | Cyan |
-| Esc, Tab, T, Z X C V B, M, arrows (menus, chat, map, extra binds) | Soft blue |
-| Everything else | Dim purple |
+| Esc, Tab, T, Z X C V B, M, arrows (menus, chat, map, extra binds) | Blue |
+| Everything else | Very dim purple |
 
 **Code:**
 

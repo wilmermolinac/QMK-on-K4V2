@@ -230,11 +230,11 @@ Colores de Classic:
 | Teclas | Color |
 |---|---|
 | W A S D (movimiento) | Rojo |
-| Q E R F G (habilidades, interactuar, recargar) | Naranja |
-| 1–5 (armas, objetos) | Amarillo |
+| Q E R F G (habilidades, interactuar, recargar) | Amarillo |
+| 1–5 (armas, objetos) | Verde |
 | Espacio, Shift izq., Ctrl izq., Alt izq. (saltar, correr, agacharse) | Cian |
-| Esc, Tab, T, Z X C V B, M, flechas (menús, chat, mapa, otras acciones) | Azul suave |
-| Todo lo demás | Morado tenue |
+| Esc, Tab, T, Z X C V B, M, flechas (menús, chat, mapa, otras acciones) | Azul |
+| Todo lo demás | Morado muy tenue |
 
 **Code:**
 
